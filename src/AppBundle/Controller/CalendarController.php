@@ -54,37 +54,23 @@ class CalendarController extends Controller
         ));
     }
 
-    public function editAction($id, Application $app, Request $request)
+    /**
+     * @Route("/{id}/edit", name="edit_calendar")
+     */
+    public function editAction(Appointment $appointment, Request $request)
     {
-        $appointment = $this->populateAppointment(
-            $app['db']->fetchAssoc('SELECT id, description, time, priority FROM calendar_appointments WHERE id=?', array($id))
-        );
-
-        $form = $app['form.factory']->create(new CalendarType(), $appointment);
+        $form = $this->createForm(new CalendarType(), $appointment);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()) {
-            $app['db']->update('calendar_appointments', array(
-                'description' => $appointment->getDescription(),
-                'time'        => $appointment->getDateTime()->format('Y-m-d H:i:s'),
-                'priority'    => $appointment->getPriority(),
-            ), array('id' => $id));
+            $this->getDoctrine()->getManager()->flush();
 
-            return $app->redirect($app['url_generator']->generate('list_calender'));
+            return $this->redirectToRoute('list_calendar');
         }
 
-        return $app['twig']->render('Calendar/edit_form.twig', array(
+        return $this->render('Calendar/edit_form.html.twig', array(
             'form' => $form->createView(),
         ));
     }
-
-    private function populateAppointment($data)
-    {
-        $appointment = new Appointment($data['description'], new \DateTime($data['time']), $data['priority']);
-        $appointment->setId($data['id']);
-
-        return $appointment;
-    }
 } 
-

@@ -17,7 +17,7 @@ My Calender
                     <th>Description</th>
                     <th>Time</th>
                     <th>Priority</th>
-                    {#<th></th>#}
+                    <th></th>
                 </tr>
 
                 {% for appointment in appointments  %}
@@ -31,7 +31,7 @@ My Calender
                     <td>{{ appointment.description }}</td>
                     <td>{{ appointment.datetime|date("D, d M - H:i") }}</td>
                     <td>{{ appointment.priority }}</td>
-                    {#<td><a href="{{ path('edit_calendar', {'id': appointment.id}) }}" class="glyphicon glyphicon-pencil"></a></td>#}
+                    <td><a href="{{ path('edit_calendar', {'id': appointment.id}) }}" class="glyphicon glyphicon-pencil"></a></td>
                 </tr>
                 {% endfor %}
             </table>
