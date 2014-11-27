@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>{% block title %}I changed it{% endblock %}</title>
+
+    <link rel="icon" href="/web/img/turtle-icon.png" type="image/png">
+
+    <link rel="stylesheet" href="/web/css/stylesheet.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+
+    {% block post_head %}{% endblock %}
+</head>
+
+<body>
+    {% block body %}{% endblock %}
+
+    <img src="/web/img/home-turtle.png" id="js-turtle">
+    <img src="/web/img/fan.png" id="js-fan">
+    <img src="/web/img/piano.gif" id="js-piano">
+
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/web/js/animate_turtle.js"></script>
+</body>
+
+</html>

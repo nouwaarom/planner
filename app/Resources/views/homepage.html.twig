@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+
+{% block body %}
+    <div class="page-header">
+        <h1>Elbert's place <small>Full of fairly usefulls stuff</small></h1>
+    </div>
+
+    <ul class=nav nav-pills>
+        <li role="presentation"><a href={# url('list_calender') #}>Calender</a></li>
+        <li role="presentation"><a href={# url('list_todo') #}>Todo</a></li>
+    </ul>
+{% endblock %}
