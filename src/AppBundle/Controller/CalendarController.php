@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use Calendar\Appointment;
-use Calendar\Type\CalendarType;
+use AppBundle\Entity\Appointment;
+use AppBundle\Form\CalendarType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class CalendarController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="list_calendar")
      */
     public function showAction()
     {
@@ -26,27 +26,30 @@ class CalendarController extends Controller
         ));
     }
 
-    public function newAction(Request $request, Application $app)
+    /**
+     * @Route("/new", name="new_calendar")
+     */
+    public function newAction(Request $request)
     {
         $appointment = new Appointment();
 
-        $form = $app['form.factory']->create(new CalendarType(), $appointment, array(
-            'action' => $app['url_generator']->generate('new_calender'),
+        $form = $this->createForm(new CalendarType(), $appointment, array(
+            'action' => $this->generateUrl('new_calendar'),
         ));
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()) {
-            $app['db']->insert('calendar_appointments', [
-                'description' => $appointment->getDescription(),
-                'time'        => $appointment->getDateTime()->format('Y-m-d H:i:s'),
-                'priority'    => $appointment->getPriority(),
-            ]);
+            $em = $this->getDoctrine()->getManager();
 
-            return $app->redirect($app['url_generator']->generate('list_calender'));
+            $em->persist($appointment);
+
+            $em->flush();
+
+            return $this->redirectToRoute('list_calendar');
         }
 
-        return $app['twig']->render('Calendar/new_form.twig', array(
+        return $this->render('Calendar/new_form.twig', array(
             'form' => $form->createView(),
         ));
     }

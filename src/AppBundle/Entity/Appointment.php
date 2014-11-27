@@ -65,7 +65,7 @@ class Appointment
         return $this->epoch;
     }
 
-    public function setDatetime(\DateTime $datetime)
+    public function setDatetime(\DateTime $epoch)
     {
        $this->epoch = $epoch; 
     }
