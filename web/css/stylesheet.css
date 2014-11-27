@@ -1,0 +1,30 @@
+html, body{
+    height: 100%;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    overflow:hidden;
+}
+
+#js-turtle{
+    position:absolute;
+    right:300px;
+    bottom:200px;
+    z-index:1;
+}
+#js-fan{
+    width:200px;
+    position:absolute;
+    right:100px;
+    bottom:100px;
+}
+#js-piano{
+    position:absolute;
+    right:300px;
+    bottom:130%;
+    display:none;
+    width:200px;
+}
+

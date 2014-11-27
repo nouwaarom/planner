@@ -1,0 +1,6 @@
+{
+    "name": "elbert-application"
+    "dependencies": {
+        "bootstrap": "3.*"
+    }
+}
