@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+New Todo Item
+{% endblock %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% block body %}
+<div class=container>
+    <div class=page-header>
+        <h1>Add a new todo item <small>more ...</small></h1>
+    </div>
+
+    <div class=row>
+        <div class = col-md-5>
+            {{ form(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
