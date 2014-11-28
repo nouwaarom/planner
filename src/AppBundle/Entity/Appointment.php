@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -78,5 +80,11 @@ class Appointment
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    static public function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('description' new Assert\Type('string'));
+        $metadata->addPropertyConstraint('description', new Assert\NotBlank());
     }
 }
