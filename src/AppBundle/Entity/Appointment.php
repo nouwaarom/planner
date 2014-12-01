@@ -84,7 +84,7 @@ class Appointment
 
     static public function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('description' new Assert\Type('string'));
+        $metadata->addPropertyConstraint('description', new Assert\Type('string'));
         $metadata->addPropertyConstraint('description', new Assert\NotBlank());
     }
 }

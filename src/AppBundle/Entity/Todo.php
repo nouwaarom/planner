@@ -20,17 +20,16 @@ class Todo
     private $id; 
 
     /**
-     * *ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $description;
 
-    //FIXME i am causing db trouble
     /**
      * @ORM\Column(type="boolean")
      */
     private $done = false;
 
-    public function __construct($description = null, $done = null)
+    public function __construct($description = null, $done = false)
     {
         $this->description = $description;
         $this->done = $done;

@@ -57,7 +57,7 @@ class TodoController extends Controller
      */
     public function editAction(Request $request, Application $app)
     {
-        $recievedItemIDs = $request->request->get('items');
+        $recievedItemIDs = $request->request->get('id');
 
         $data = $this->fetchAll();
 

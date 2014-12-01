@@ -10,7 +10,11 @@ class CalendarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('datetime', 'datetime')
+            ->add('datetime', 'datetime', array(
+                'data' => new \DateTime(),
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+            ))
             ->add('description', 'text')
             ->add('priority', 'integer')
             ->add('submit', 'submit')

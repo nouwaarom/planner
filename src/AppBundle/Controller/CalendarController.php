@@ -39,7 +39,7 @@ class CalendarController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()) {
+        if($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($appointment);

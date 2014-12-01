@@ -14,7 +14,7 @@ class TodoType extends AbstractType
                 'required' => true, // is default value
             ))
             ->add('done', 'hidden', array(
-                'data' => false,
+                'mapped' => false,
             ))
             ->add('submit', 'submit')
         ;
