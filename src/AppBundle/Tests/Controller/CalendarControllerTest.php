@@ -15,4 +15,19 @@ class CalendarControllerTest extends WebTestCase
 
         $this->assertCount(1, $crawler->filter('html:contains("I dont like pie")'));
     }
+
+    public function testNewAction()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/calendar/new');
+
+        $form = $crawler->selectButton('Submit')->form();
+        $form['calendar[description]'] = 'Lorem ipsum dolor mir submit a form.';
+
+        $crawler = $client->submit($form);
+        $crawler = $client->followRedirect();
+
+        $this->assertCount(1, $crawler->filter('html:contains("Lorem ipsum dolor mir submit a form.")'));
+    }
 }
