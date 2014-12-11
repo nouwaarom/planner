@@ -13,7 +13,7 @@ class CalendarControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/calendar');
         $crawler = $client->followRedirect();
 
-        $this->assertCount(1, $crawler->filter('html:contains("I dont like pie")'));
+        $this->assertCount(1, $crawler->filter('html:contains("Lecture")'));
     }
 
     public function testNewAction()
