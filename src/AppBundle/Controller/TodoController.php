@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * @Route("/todo")
@@ -39,7 +40,7 @@ class TodoController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($todo);
             $em->flush();
@@ -53,32 +54,26 @@ class TodoController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="edit_todo")
+     * @Route("/edit")
+     * @Method({"POST"})
      */
-    public function editAction(Request $request, Application $app)
+    public function editAction(Request $request)
     {
-        $recievedItemIDs = $request->request->get('id');
+        $recievedItemIDs = $request->request->get('items');
+        if($recievedItemIDs)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $repo = $this->getDoctrine()->getRepository('AppBundle:Todo');
 
-        $data = $this->fetchAll();
-
-        // todo dit is slecht
-        foreach ($data as $id => $item) {
-            if (in_array($id, $recievedItemIDs)) {
-                //if our item is done we dont need to store it
-                unset($data[$id]);
-            } else {
-                $data[$id]->setDone(false);
+            foreach ($recievedItemIDs as $recievedItemID) {
+                $todo = $repo->find($recievedItemID);
+                dump($todo);
+                $em->remove($todo);
             }
+            $em->flush();
         }
 
-        $app['todo.storage']->removeAll();
-        foreach ($data as $d) {
-            $app['todo.storage']->persist($d);
-        }
-
-        return $app['twig']->render('Todo/edit_success.twig', array(
-            'amountOfDoneItems' => count($recievedItemIDs),
-        ));
+        return $this->redirectToRoute('list_todo');
     }
 }
 
