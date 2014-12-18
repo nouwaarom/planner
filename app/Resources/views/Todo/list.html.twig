@@ -13,12 +13,12 @@ Todo list
 
     <div class="row">
         <div class=col-md-5>
-            <form method="POST" action="edit">
+            <form method="POST" action="{{ path('todo_delete') }}">
                 <ul>
-                    {% for id, item in items %}
+                    {% for item in items %}
                         <li class=input-group>
                             <span class=input-group-addon>
-                                <input type="checkbox" name="items[]" value="{{ id }}" {% if item.done %}checked{% endif %}>
+                                <input type="checkbox" name="items[]" value="{{ item.id }}" {% if item.done %}checked{% endif %}>
                             </span>
                             <span class="form-control">{{ item.description }}</span>
                         </li>

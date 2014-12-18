@@ -35,6 +35,11 @@ class Todo
         $this->done = $done;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function getDescription()
     {
         return $this->description;

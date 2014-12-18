@@ -54,16 +54,17 @@ class TodoController extends Controller
     }
 
     /**
-     * @Route("/edit")
+     * @Route("/delete", name="todo_delete")
      * @Method({"POST"})
      */
-    public function editAction(Request $request)
+    public function deleteAction(Request $request)
     {
         $recievedItemIDs = $request->request->get('items');
-        if($recievedItemIDs)
-        {
+        if($recievedItemIDs) {
             $em = $this->getDoctrine()->getManager();
             $repo = $this->getDoctrine()->getRepository('AppBundle:Todo');
+
+            dump($recievedItemIDs);
 
             foreach ($recievedItemIDs as $recievedItemID) {
                 $todo = $repo->find($recievedItemID);
