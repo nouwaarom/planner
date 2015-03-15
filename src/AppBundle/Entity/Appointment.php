@@ -31,6 +31,11 @@ class Appointment
     private $epoch;
 
     /**
+     * @ORM\OneToMany(targetEntity="Todo", mappedBy="appointment")
+     */
+    private $todo;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $priority;

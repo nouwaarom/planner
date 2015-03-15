@@ -25,6 +25,11 @@ class Todo
     private $description;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Appointment", inversedBy="todo")
+     */
+    private $appointment;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $done = false;

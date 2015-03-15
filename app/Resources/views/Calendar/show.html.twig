@@ -11,41 +11,51 @@ My Calender
     </div>
 
     <div class="row">
-        <div class=col-md-7>
+        <div class=col-md-4>
             <table class="agenda  table  table-hover">
                 <tr>
-                    <th>Description</th>
-                    <th>Time</th>
-                    <th>Priority</th>
+                    <th>Today</th>
                     <th></th>
                 </tr>
 
-                {% for appointment in appointments  %}
-                {% if appointment.datetime < date('now') %}
-                <tr class="bg-danger">
-                {% elseif appointment.datetime == date('now') %}
+                {% for appointment in today  %}
                 <tr>
-                {% else %}
-                <tr class="bg-success">
-                {% endif %}
                     <td>{{ appointment.description }}</td>
-                    <td>{{ appointment.datetime|date("D, d M - H:i") }}</td>
-                    <td>{{ appointment.priority }}</td>
-                    <td><a href="{{ path('edit_calendar', {'id': appointment.id}) }}" class="glyphicon glyphicon-pencil"></a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+        <div class=col-md-4>
+            <table class="agenda  table  table-hover">
+                <tr>
+                    <th>Tomorrow</th>
+                    <th></th>
+                </tr>
+
+                {% for appointment in tomorrow  %}
+                <tr>
+                    <td>{{ appointment.description }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+        <div class=col-md-4>
+            <table class="agenda  table  table-hover">
+                <tr>
+                    <th>Overmorrow</th>
+                    <th></th>
+                </tr>
+
+                {% for appointment in overmorrow  %}
+                <tr>
+                    <td>{{ appointment.description }}</td>
                 </tr>
                 {% endfor %}
             </table>
         </div>
 
-        <div class="col-md-5">
-            <a class="btn  btn-primary  btn-lg" href="{{ path('new_calendar') }}"><i class="glyphicon glyphicon-floppy-disk"></i></a>
-        </div>
-
-        {# this is truly bad
-        <div class="col-md-5">
-            <h2>Add a new appointment</h2>
-            {{ render(url('new_calender')) }}
-        </div> #}
     </div>
 </div>
 {% endblock %}

@@ -19,10 +19,16 @@ class CalendarController extends Controller
      */
     public function showAction()
     {
-        $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findAllAndOrderByDate();
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Appointment');
+
+        $today = $repository->findDate(new \DateTime('today'),new \DateTime('tomorrow'));
+        $tomorrow = $repository->findDate(new \DateTime('tomorrow'), (new \DateTime('today'))->modify("+2 day"));
+        $overmorrow = $repository->findDate((new \DateTime('today'))->modify("+2 day"), (new \DateTime('today'))->modify("+3 day"));
 
         return $this->render('Calendar/show.html.twig', array(
-            'appointments' => $appointments,
+            'today' => $today,
+            'tomorrow' => $tomorrow,
+            'overmorrow' => $overmorrow,
         ));
     }
 
