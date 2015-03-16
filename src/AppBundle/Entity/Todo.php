@@ -30,6 +30,11 @@ class Todo
     private $appointment;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Deadline", inversedBy="todo")
+     */
+    private $deadline;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $done = false;

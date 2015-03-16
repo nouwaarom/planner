@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="deadline") 
@@ -18,12 +19,7 @@ class Deadline
     private $id;
 
     /**
-     * @ORM\Column(type="string", length="64")
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="string", length="255")
+     * @ORM\Column(type="string", length=255)
      */
     private $description;
 
@@ -33,18 +29,43 @@ class Deadline
     private $epoch;
 
     /**
-     * @OneToMany(targetEntity="Todo")
+     * @ORM\OneToMany(targetEntity="Todo", mappedBy="deadline")
      */
     private $todo;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $met;
+    private $met = false;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $reflection;
+    private $reflection = "";
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getEpoch()
+    {
+        return $this->epoch;
+    }
+
+    public function setEpoch(\DateTime $time)
+    {
+        $this->epoch = $time;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 }
 

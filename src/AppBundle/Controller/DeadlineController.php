@@ -1,0 +1,42 @@
+<?php
+
+namespace AppBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Form\DeadlineType;
+use AppBundle\Entity\Deadline;
+
+/**
+ * @Route("/deadline")
+ */
+class DeadlineController extends Controller
+{
+    /**
+     * @Route("/new", name="new_deadline")
+     */
+    public function newAction(Request $request)
+    {
+        $deadline = new Deadline();
+
+        $form = $this->createForm(new DeadlineType(), $deadline, array(
+            'action' => $this->generateUrl('new_deadline'),
+        ));
+
+        $form->handleRequest($request);
+        
+        if($form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($deadline);
+            $em->flush();
+
+            return $this->redirectToRoute('list_calendar');
+        }
+
+        return $this->render('Deadline/new_form.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+}
