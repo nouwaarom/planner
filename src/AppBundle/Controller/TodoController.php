@@ -32,9 +32,7 @@ class TodoController extends Controller
      */
     public function newAction(Request $request)
     {
-        $todo = new Todo();
-
-        $form = $this->createForm(new TodoType(), $todo, array(
+        $form = $this->createForm(new TodoType(), null, array(
             'action' => $this->generateUrl('new_todo'),
         ));
 
@@ -42,7 +40,8 @@ class TodoController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($todo);
+
+            $em->persist($form->getData());
             $em->flush();
 
             return $this->redirectToRoute('list_todo');
@@ -54,23 +53,22 @@ class TodoController extends Controller
     }
 
     /**
-     * @Route("/delete", name="todo_delete")
+     * @Route("/done", name="todo_done")
      * @Method({"POST"})
      */
-    public function deleteAction(Request $request)
+    public function doneAction(Request $request)
     {
         $recievedItemIDs = $request->request->get('items');
+
         if($recievedItemIDs) {
             $em = $this->getDoctrine()->getManager();
             $repo = $this->getDoctrine()->getRepository('AppBundle:Todo');
 
-            dump($recievedItemIDs);
-
             foreach ($recievedItemIDs as $recievedItemID) {
                 $todo = $repo->find($recievedItemID);
-                dump($todo);
-                $em->remove($todo);
+                $todo->hasBeenDone();
             }
+
             $em->flush();
         }
 

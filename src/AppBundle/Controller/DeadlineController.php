@@ -18,9 +18,7 @@ class DeadlineController extends Controller
      */
     public function newAction(Request $request)
     {
-        $deadline = new Deadline();
-
-        $form = $this->createForm(new DeadlineType(), $deadline, array(
+        $form = $this->createForm(new DeadlineType(), null, array(
             'action' => $this->generateUrl('new_deadline'),
         ));
 
@@ -29,7 +27,7 @@ class DeadlineController extends Controller
         if($form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($deadline);
+            $em->persist($form->getData());
             $em->flush();
 
             return $this->redirectToRoute('list_calendar');

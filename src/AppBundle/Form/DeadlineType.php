@@ -2,8 +2,11 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Deadline;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class DeadlineType extends AbstractType
 {
@@ -18,6 +21,19 @@ class DeadlineType extends AbstractType
             ->add('description', 'text')
             ->add('submit', 'submit')
             ->getForm();
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $options)
+    {
+        $options->setDefaults(array(
+            'data_class' => 'AppBundle\Entity\Deadline',
+            'empty_data' => function (FormInterface $form) {
+                return Deadline::plan(
+                    $form->get('description')->getData(),
+                    $form->get('epoch')->getData()
+                );
+            }
+        ));
     }
 
     public function getName()

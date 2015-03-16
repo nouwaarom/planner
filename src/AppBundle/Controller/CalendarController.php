@@ -23,7 +23,7 @@ class CalendarController extends Controller
 
         $today = $repository->findDate(new \DateTime('today'));
         $tomorrow = $repository->findDate(new \DateTime('tomorrow'));
-        $overmorrow = $repository->findDate((new \DateTime('today'))->modify("+2 day"));
+        $overmorrow = $repository->findDate(new \DateTime('+ 2 days'));
 
         $todo = $this->getDoctrine()->getRepository('AppBundle:Todo')->findAll();
 

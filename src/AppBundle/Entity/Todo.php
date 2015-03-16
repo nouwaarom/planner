@@ -39,10 +39,14 @@ class Todo
      */
     private $done = false;
 
-    public function __construct($description = null, $done = false)
+    private function __construct($description)
     {
         $this->description = $description;
-        $this->done = $done;
+    }
+
+    public static function writeDown($description)
+    {
+        return new static($description);
     }
 
     public function getId()
@@ -65,9 +69,9 @@ class Todo
         return $this->done;
     }
 
-    public function setDone($done)
+    public function hasBeenDone()
     {
-        $this->done = $done;
+        $this->done = true;
     }
 
     static public function loadValidatorMetadata(ClassMetadata $metadata)

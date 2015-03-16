@@ -43,6 +43,17 @@ class Deadline
      */
     private $reflection = "";
 
+    private function __construct($description, \DateTime $epoch)
+    {
+        $this->description = $description;
+        $this->epoch = $epoch;
+    }
+
+    public static function plan($description, \DateTime $epoch)
+    {
+        return new self($description, $epoch);
+    }
+
     public function getId()
     {
         return $this->id;
