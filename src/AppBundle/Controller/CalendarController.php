@@ -21,14 +21,17 @@ class CalendarController extends Controller
     {
         $repository = $this->getDoctrine()->getRepository('AppBundle:Appointment');
 
-        $today = $repository->findDate(new \DateTime('today'),new \DateTime('tomorrow'));
-        $tomorrow = $repository->findDate(new \DateTime('tomorrow'), (new \DateTime('today'))->modify("+2 day"));
-        $overmorrow = $repository->findDate((new \DateTime('today'))->modify("+2 day"), (new \DateTime('today'))->modify("+3 day"));
+        $today = $repository->findDate(new \DateTime('today'));
+        $tomorrow = $repository->findDate(new \DateTime('tomorrow'));
+        $overmorrow = $repository->findDate((new \DateTime('today'))->modify("+2 day"));
+
+        $todo = $this->getDoctrine()->getRepository('AppBundle:Todo')->findAll();
 
         return $this->render('Calendar/show.html.twig', array(
             'today' => $today,
             'tomorrow' => $tomorrow,
             'overmorrow' => $overmorrow,
+            'todo' => $todo,
         ));
     }
 

@@ -14,8 +14,11 @@ class AppointmentRepository extends EntityRepository
             ->getResult();
     }
 
-    public function findDate(\DateTime $start, \DateTime $end)
+    public function findDate(\DateTime $start)
     {
+        $end = clone $start;
+        $end->modify("+1 day");
+
         return $this->getEntityManager()->createQuery(
             'SELECT a
             FROM AppBundle:Appointment a
