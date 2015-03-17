@@ -7,22 +7,14 @@
     <title>{% block title %}I changed it{% endblock %}</title>
 
     <link rel="icon" href="{{ asset('img/turtle-icon.png') }}" type="image/png">
-
     <link rel="stylesheet" href="{{ asset('css/stylesheet.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/bootstrap/dist/css/bootstrap.css') }}">
-
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
     {% block post_head %}{% endblock %}
 </head>
 
 <body>
     {% block body %}{% endblock %}
-
-    <img src="{{ asset('img/home-turtle.png') }}" id="js-turtle">
-    <img src="{{ asset('img/fan.png') }}" id="js-fan">
-    <img src="{{ asset('img/piano.gif') }}" id="js-piano">
-
-    <script src="{{ asset('vendor/jquery/dist/jquery.js') }}"></script>
-    <script src="{{ asset('js/animate_turtle.js') }}"></script>
 </body>
 
 </html>
