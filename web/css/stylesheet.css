@@ -25,6 +25,9 @@ body{
         float:left;
         margin:0px 20px;
     }
+        .deadline {
+            border-bottom: 1px solid black;
+        }
 
     .col-todo {
         display:block;

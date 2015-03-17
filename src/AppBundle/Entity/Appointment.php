@@ -67,7 +67,7 @@ class Appointment
         $this->priority = $priority;
     }
 
-    public function getDatetime()
+    public function getDateTime()
     {
         return $this->epoch;
     }

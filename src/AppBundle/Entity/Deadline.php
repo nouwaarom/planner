@@ -65,6 +65,11 @@ class Deadline
         return $this->epoch;
     }
 
+    public function getDateTime()
+    {
+        return $this->epoch;
+    }
+
     public function setEpoch(\DateTime $time)
     {
         $this->epoch = $time;
