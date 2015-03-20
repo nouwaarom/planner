@@ -35,6 +35,10 @@ body{
         margin:0px 40px;
     }
 
+    .high {
+        font-size: 30px;
+    }
+
 .below {
     display: block;
     clear: both;

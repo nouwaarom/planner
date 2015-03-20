@@ -2,8 +2,10 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Todo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AppointmentType extends AbstractType
 {
@@ -17,9 +19,21 @@ class AppointmentType extends AbstractType
             ))
             ->add('description', 'text')
             ->add('priority', 'integer')
+            ->add('todo', 'collection', array(
+                'type' => new TodoType(),
+                'allow_add' => true,
+                'by_reference' => false,
+            ))
             ->add('submit', 'submit')
             ->getForm()
         ;
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $options)
+    {
+        $options->setDefaults(array(
+            'data_class' => 'AppBundle\Entity\Appointment'
+        ));
     }
 
     public function getName()

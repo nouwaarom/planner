@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -31,7 +32,7 @@ class Appointment
     private $epoch;
 
     /**
-     * @ORM\OneToMany(targetEntity="Todo", mappedBy="appointment")
+     * @ORM\OneToMany(targetEntity="Todo", mappedBy="appointment", cascade={"persist"})
      */
     private $todo;
 
@@ -45,6 +46,7 @@ class Appointment
         $this->description = $description;
         $this->epoch = $epoch;
         $this->priority = $priority;
+        $this->todo = new ArrayCollection();
     }
 
     public function setId($id)
@@ -85,6 +87,21 @@ class Appointment
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    public function getTodo()
+    {
+        return $this->todo->toArray();
+    }
+
+    public function addTodo(Todo $todo)
+    {
+        $todo->setAppointment($this);
+        $this->todo[] = $todo;
+    }
+    
+    public function removeTodo(Todo $todo)
+    {
     }
 
     static public function loadValidatorMetadata(ClassMetadata $metadata)

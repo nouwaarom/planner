@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\Appointment;
 
 /**
  * @ORM\Entity
@@ -25,7 +26,7 @@ class Todo
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Appointment", inversedBy="todo")
+     * @ORM\ManyToOne(targetEntity="Appointment", inversedBy="todo")
      */
     private $appointment;
 
@@ -62,6 +63,16 @@ class Todo
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    public function getAppointment()
+    {
+        return $this->appointment;
+    }
+
+    public function setAppointment(Appointment $appointment)
+    {
+        $this->appointment = $appointment;
     }
 
     public function isDone()

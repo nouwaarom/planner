@@ -4,7 +4,6 @@
 Add appointment
 {% endblock %}
 
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
 {% block body %}
 <div class=container>
     <div class=page-header>
@@ -13,8 +12,20 @@ Add appointment
 
     <div class=row>
         <div class = col-md-5>
-            {{ form(form) }}
+        {{ form_start(form) }}
+            {{ form_row(form.datetime) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.priority) }}
+            <ul class="todo" data-prototype="{{ form_widget(form.todo.vars.prototype)|e }}"></ul>
+            {% do form.todo.setRendered %}
+            {{ form_rest(form) }}
+        </form>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src={{ asset('vendor/jquery/dist/jquery.min.js') }}></script>
+<script src={{ asset('js/add_todo.js') }}></script>
 {% endblock %}
