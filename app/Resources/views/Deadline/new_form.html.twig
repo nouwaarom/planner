@@ -7,7 +7,17 @@ New Deadline!
 {% block body %}
 <h1>Hurray, it's a new deadline!</h1>    
 
-{{ form(form) }}
+    {{ form_start(form) }}
+        {{ form_row(form.epoch) }}
+        {{ form_row(form.description) }}
+        <ul class="todo" data-prototype="{{ form_widget(form.todo.vars.prototype)|e }}"></ul>
+        {% do form.todo.setRendered %}
+        {{ form_rest(form) }}
+    </form>
 
 {% endblock %}
 
+{% block javascripts %}
+<script src={{ asset('vendor/jquery/dist/jquery.min.js') }}></script>
+<script src={{ asset('js/add_todo.js') }}></script>
+{% endblock %}

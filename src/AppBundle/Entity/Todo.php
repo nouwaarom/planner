@@ -75,6 +75,16 @@ class Todo
         $this->appointment = $appointment;
     }
 
+    public function getDeadline()
+    {
+        return $this->deadline;
+    }
+
+    public function setDeadline(Deadline $deadline)
+    {
+        $this->deadline = $deadline;
+    }
+
     public function isDone()
     {
         return $this->done;

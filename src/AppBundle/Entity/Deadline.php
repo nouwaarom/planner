@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Todo;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -30,7 +32,7 @@ class Deadline
     private $epoch;
 
     /**
-     * @ORM\OneToMany(targetEntity="Todo", mappedBy="deadline")
+     * @ORM\OneToMany(targetEntity="Todo", mappedBy="deadline", cascade={"persist"})
      */
     private $todo;
 
@@ -48,6 +50,7 @@ class Deadline
     {
         $this->description = $description;
         $this->epoch = $epoch;
+        $this->todo = new ArrayCollection();
     }
 
     public static function plan($description, \DateTime $epoch)
@@ -84,5 +87,15 @@ class Deadline
     {
         $this->description = $description;
     }
-}
 
+    public function getTodo()
+    {
+        return $this->todo->toArray();
+    }
+     
+    public function addTodo(Todo $todo)
+    {
+        $todo->setAppointment($this);
+        $this->todo[] = $todo;
+    }
+}
