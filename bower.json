@@ -1,6 +1,6 @@
 {
-    "name": "elbert-application"
-    "dependencies": {
-        "bootstrap": "3.*"
-    }
+  "name": "elbert-application",
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
 }

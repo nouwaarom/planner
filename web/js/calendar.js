@@ -1,3 +1,6 @@
+/*
+ * Highlights appointments and todo items that are linked
+ */
 var items = document.getElementsByClassName("item");
 
 var i, j;
