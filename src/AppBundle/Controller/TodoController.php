@@ -20,11 +20,13 @@ class TodoController extends Controller
      */
     public function showAction()
     {
-        $items = $this->getDoctrine()->getRepository('AppBundle:Todo')->findAll();
+        $items = $this->get('app.todo_util')->groupByDone($this->getDoctrine()->getRepository('AppBundle:Todo')->findAll());
 
         return $this->render('Todo/list.html.twig', array(
-            'items' => $items 
+            'todo' => $items['undone'],
+            'done' => $items['done'],
         ));
+        
     }
 
     /**

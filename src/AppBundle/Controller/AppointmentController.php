@@ -48,7 +48,7 @@ class AppointmentController extends Controller
      */
     public function editAction(Appointment $appointment, Request $request)
     {
-        $form = $this->createForm(new CalendarType(), $appointment);
+        $form = $this->createForm(new AppointmentType(), $appointment);
 
         $form->handleRequest($request);
 

@@ -24,6 +24,7 @@ class CalendarExtension extends \Twig_Extension
         if($class instanceof Deadline) {
             return true;
         }
+
         return false;
     }
 

@@ -37,4 +37,24 @@ class DeadlineController extends Controller
             'form' => $form->createView()
         ));
     }
+
+    /**
+     * @Route("/{id}/edit", name="edit_deadline")
+     */
+    public function editAction(Deadline $deadline, Request $request)
+    {
+        $form = $this->createForm(new DeadlineType(), $deadline);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('list_calendar');
+        }
+
+        return $this->render('Deadline/edit_form.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
 }

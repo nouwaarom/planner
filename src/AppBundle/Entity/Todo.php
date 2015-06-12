@@ -8,8 +8,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\Appointment;
 
 /**
- * @ORM\Entity
  * @ORM\Table(name="todo_items")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\TodoRepository")
  */
 class Todo
 {

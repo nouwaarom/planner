@@ -34,7 +34,7 @@ class CalendarController extends Controller
         $deadOvermorrow = $deadRepository->findDate(new \DateTime('+2 days'));
         $overmorrow = $this->sortByTime($overmorrow, $deadOvermorrow);
 
-        $todo = $this->getDoctrine()->getRepository('AppBundle:Todo')->findAll();
+        $todo = $this->getDoctrine()->getRepository('AppBundle:Todo')->findAllItemsThatAreNotDone();
 
         return $this->render('Calendar/show.html.twig', array(
             'today' => $today,
@@ -46,20 +46,18 @@ class CalendarController extends Controller
 
     private function sortByTime($appointments, $deadlines)
     {
-        $sorted = array();
-    
-        foreach ($appointments as $appointment)
-        {
-            foreach ($deadlines as $key => $deadline) {
-                if ($deadline->getDateTime() < $appointment->getDateTime()) {
-                    $sorted[] = $deadline;
-                    unset($deadlines[$key]);
-                }
-            }
+        $sorted = array_merge($appointments, $deadlines);
 
-            $sorted[] = $appointment;
-        }
+        usort( $sorted, array($this, 'compare_dates') );
 
         return $sorted;
+    }
+
+    public function compare_dates($a, $b)
+    {
+        if( $a->getDateTime() > $b->getDateTime() )
+            return 1;
+        else
+            return -1;
     }
 } 
