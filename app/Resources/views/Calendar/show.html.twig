@@ -59,8 +59,8 @@ My Calender
                 </tr>
                 {% for item in todo  %}
                     <tr>
-                        <td class=item {% if item.appointment != null %}data-id={{ item.appointment.id }} {% endif %}>
-                            <a href="{{ path('list_todo') }}">
+                        <td>
+                            <a class=item {% if item.appointment != null %}data-id={{ item.appointment.id }} {% endif %}href="{{ path('list_todo') }}">
                                 {{ item.description }}
                             </a>
                         </td>
