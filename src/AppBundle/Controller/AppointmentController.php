@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Appointment;
 use AppBundle\Entity\Todo;
 use AppBundle\Form\AppointmentType;
+use AppBundle\Form\SimpleAppointmentType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -48,9 +49,11 @@ class AppointmentController extends Controller
      */
     public function editAction(Appointment $appointment, Request $request)
     {
-        $form = $this->createForm(new AppointmentType(), $appointment);
+        $form = $this->createForm(new SimpleAppointmentType(), $appointment);
 
         $form->handleRequest($request);
+
+        $todo = $this->get('app.todo_util')->groupByDone($appointment->getTodo());
 
         if($form->isSubmitted()) {
             $this->getDoctrine()->getManager()->flush();
@@ -60,6 +63,8 @@ class AppointmentController extends Controller
 
         return $this->render('Appointment/edit_form.html.twig', array(
             'form' => $form->createView(),
+            'todo' => $todo['undone'],
+            'done' => $todo['done'],
         ));
     }
 

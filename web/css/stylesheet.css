@@ -46,6 +46,12 @@ body{
         margin:0px 40px;
     }
 
+    .col-form {
+        display:block;
+        float:left;
+        margin:0px 40px;
+    }
+
     .high {
         font-weight: bold;
     }
