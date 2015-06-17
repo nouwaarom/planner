@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% macro listDay(day, label) %}
-<tr>
-    <th>{{ label }}</th>
-</tr>
-{% for appointment in day %}
+<ul class=todo-list>
     <tr>
-        <td>
+        <th>{{ label }}</th>
+    </tr>
+    {% for appointment in day %}
+        <tr><td>
             <a data-id={{ appointment.id }}
             {% if appointment is deadline %}
                 class="deadline item" href={{ path('edit_deadline', {'id': appointment.id }) }}>
@@ -15,9 +15,9 @@
             {% endif %}
             {{ appointment.description }}
             </a>
-        </td>
-    </tr>
-{% endfor %}
+        </td></tr>
+    {% endfor %}
+</ul>
 {% endmacro %}
 
 
@@ -72,6 +72,14 @@ My Calender
         <a class=btn href={{ path('new_appointment') }}>New Appointment</a>
         <a class=btn href={{ path('new_todo') }}>New Todo</a>
         <a class=btn href={{ path('new_deadline') }}>New Deadline</a>
+    </div>
+
+    <div class=row>
+       {{ render(controller(
+            'AppBundle:Notification:getNotifications',
+            { 'date' : date('today') }
+          ))
+       }}
     </div>
 </div>
 {% endblock %}

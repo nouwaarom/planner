@@ -1,41 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% macro listTodo(list) %}
-    <ul>
-    {% for item in list %}
-        <li class=input-group>
-            <span class=input-group-addon>
-                <input type="checkbox" name="items[]" value="{{ item.id }}" {% if item.done %}checked{% endif %}>
-            </span>
-            <span class="form-control">{{ item.description }}</span>
-        </li>
-    {% endfor %}
-    </ul>
-{% endmacro %}
-
 {% block title %}
 Todo list
 {% endblock %}
 
 {% block body %}
-    {% import _self as macros %}
 <div class=container>
     <div class=page-header>
         <h1>Todo list <small>wahooo</small></h1>
     </div>
 
     <div class="row">
-        <h3>Todo</h3>
-        <div class=col-todo>
+        <div class=col>
+            <h3>Todo</h3> 
             <form method="POST" action="{{ path('todo_done') }}">
-                {{ macros.listTodo(todo) }}
+                <ul class=todo-list>
+                {% for item in todo %}
+                    <li class=input-group>
+                        <span class=input-group-addon>
+                            <input type="checkbox" name="items[]" value="{{ item.id }}" {% if item.done %}checked{% endif %}>
+                        </span>
+                        <span class="form-control">{{ item.description }}</span>
+                    </li>
+                {% endfor %}
+                </ul>
                 <input type="submit" value="Opslaan" class="btn  btn-primary">
             </form>
         </div>
 
-        <div class=col-todo>
+        <div class=col>
         <h3>Done</h3>
-            {{ macros.listTodo(done) }}
+            <ul class=todo-list>
+            {% for item in done %}
+                <li>
+                    {{ item.description }}
+                </li>
+            {% endfor %}
+            </ul>
         </div>
 
     </div>

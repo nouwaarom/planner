@@ -6,7 +6,7 @@ use AppBundle\Entity\Deadline;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DeadlineType extends AbstractType
 {
@@ -23,9 +23,9 @@ class DeadlineType extends AbstractType
             ->getForm();
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $options)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $options->setDefaults(array(
+        $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Deadline',
             'empty_data' => function (FormInterface $form) {
                 return Deadline::plan(

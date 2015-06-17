@@ -5,7 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Todo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AppointmentType extends AbstractType
 {
@@ -29,11 +29,9 @@ class AppointmentType extends AbstractType
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $options)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $options->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Appointment'
-        ));
+        $resolver->setDefault('data_class', 'AppBundle\Entity\Appointment');
     }
 
     public function getName()

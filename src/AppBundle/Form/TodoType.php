@@ -6,7 +6,7 @@ use AppBundle\Entity\Todo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TodoType extends AbstractType
 {
@@ -23,9 +23,9 @@ class TodoType extends AbstractType
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $options)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $options->setDefaults(array(
+        $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Todo',
             'empty_data' => function (FormInterface $form) {
                 return Todo::writeDown($form->get('description')->getData());
