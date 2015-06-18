@@ -5,9 +5,10 @@ html, body{
 }
 
 body{
-    margin: 0px 20%;
+    margin: 0px;
     padding: 0px;
     overflow:hidden;
+    background-color: #AAEEAA;
 }
 
 h1{
@@ -25,7 +26,14 @@ a:hover {
 
 .page-header {
     font-size: 26px;
+    background-color: #88CC88;
+    padding: 50px 200px;
+    color: #FFFFFF;
 }
+    .page-header h1 {
+        margin: 0px;
+        font-size: 56px;
+    }
     .page-header small {
         font-size: 24px;
     }
@@ -40,14 +48,23 @@ a:hover {
     text-color: #000000;
 }
 
+.note-row {
+    margin: 50px 0px;
+    padding: 0px 240px;
+}
+
 .row {
-    margin: 10% 0px;
+    padding: 50px 220px;
+    height: 400px;
+    background-color: #FFFFFF;
 }
     .col-day {
         display:block;
         float:left;
         margin:0px 20px;
+        width:200px;
     }
+
         .deadline {
             border-bottom: 1px solid black;
         }
@@ -56,14 +73,11 @@ a:hover {
             text-decoration: none;
         }
 
-    .col {
+    .col-todo {
         display:block;
         float:left;
-        margin:0px 40px;
-    }
-
-    .col-todo {
-        margin:0px 0px;
+        margin:0px 50px;
+        width:200px;
     }
 
     .col-form {
@@ -110,8 +124,8 @@ a:hover {
 .below {
     display: block;
     clear: both;
-    margin: 0px;
-    padding: 80px 0px;
+    padding: 20px 220px;
+    background-color: #FFFFFF;
 }
     .below .btn {
         margin: 10px;

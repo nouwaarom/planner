@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% macro listDay(day, label) %}
-<ul class=todo-list>
+<table class=day-list>
     <tr>
         <th>{{ label }}</th>
     </tr>
@@ -17,7 +17,7 @@
             </a>
         </td></tr>
     {% endfor %}
-</ul>
+</table>
 {% endmacro %}
 
 
@@ -28,32 +28,25 @@ My Calender
 {% block body %}
     {% import _self as macros %}
 
-<div class=container>
     <div class=page-header>
         <h1>Calender <small>Putting some logic in the tasks...</small></h1>
     </div>
 
     <div class="row">
         <div class=col-day>
-            <table class="agenda  table  table-hover">
-               {{ macros.listDay(today, "Today") }} 
-            </table>
+            {{ macros.listDay(today, "Today") }} 
         </div>
         
         <div class=col-day>
-            <table class="agenda  table  table-hover">
-                {{ macros.listDay(tomorrow, "Tomorrow") }}
-           </table>
+            {{ macros.listDay(tomorrow, "Tomorrow") }}
         </div>
         
         <div class=col-day>
-            <table class="agenda  table  table-hover">
-               {{ macros.listDay(overmorrow, "Overmorrow") }} 
-            </table>
+            {{ macros.listDay(overmorrow, "Overmorrow") }} 
         </div>
 
         <div class=col-todo>
-            <table class="agenda table table-hover">
+            <table class=todo-list>
                 <tr>
                     <th>Todo</th>
                 </tr>
@@ -74,14 +67,14 @@ My Calender
         <a class=btn href={{ path('new_deadline') }}>New Deadline</a>
     </div>
 
-    <div class=row>
+    <div class=note-row>
        {{ render(controller(
             'AppBundle:Notification:getNotifications',
             { 'date' : date('today') }
           ))
        }}
     </div>
-</div>
+
 {% endblock %}
 
 {% block javascripts %}

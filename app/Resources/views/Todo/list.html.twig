@@ -11,7 +11,7 @@ Todo list
     </div>
 
     <div class="row">
-        <div class=col>
+        <div class=col-todo>
             <h3>Todo</h3> 
             <form method="POST" action="{{ path('todo_done') }}">
                 <ul class=todo-list>
@@ -24,11 +24,11 @@ Todo list
                     </li>
                 {% endfor %}
                 </ul>
-                <input type="submit" value="Opslaan" class="btn  btn-primary">
+                <input type="submit" value="Save" class="btn  btn-primary">
             </form>
         </div>
 
-        <div class=col>
+        <div class=col-todo>
         <h3>Done</h3>
             <ul class=todo-list>
             {% for item in done %}

@@ -5,9 +5,16 @@ New Deadline!
 {% endblock %}
 
 {% block body %}
-<h1>Hurray, it's a new deadline!</h1>    
+<div class=page-header>
+    <h1>Hurray, it's a new deadline!</h1>    
+</div>
 
-{{ form(form) }}
+<div class=row>
+    <div class=col-form>
+        <h3>Deadline</h3>
+        {{ form(form) }}
+    </div>
+</div>
 
 {% endblock %}
 
