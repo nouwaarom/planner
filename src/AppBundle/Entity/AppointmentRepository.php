@@ -29,4 +29,14 @@ class AppointmentRepository extends EntityRepository
         ->setParameter('end', $end)
         ->getResult();
     }
+
+    public function findFirst(\DateTime $after)
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT a
+            FROM AppBundle:Appointment a
+            WHERE a.epoch > :after'
+        )->setParameter('after', $after)
+        ->getOneOrNullResult();
+    }
 }

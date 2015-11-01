@@ -130,3 +130,8 @@ a:hover {
     .below .btn {
         margin: 10px;
     }
+
+.note {
+    color: #2F2F2F;
+    font-size: 24px;
+}

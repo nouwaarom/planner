@@ -26,7 +26,6 @@ class TodoController extends Controller
             'todo' => $items['undone'],
             'done' => $items['done'],
         ));
-        
     }
 
     /**
@@ -69,6 +68,32 @@ class TodoController extends Controller
             foreach ($recievedItemIDs as $recievedItemID) {
                 $todo = $repo->find($recievedItemID);
                 $todo->hasBeenDone();
+            }
+
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('list_todo');
+    }
+
+    /**
+     * @Route("/delete", name="todo_delete")
+     * @Method({"POST"})
+     */
+    public function deleteAction(Request $request)
+    {
+        $recievedItemIDs = $request->request->get('items');
+
+        dump($request);
+
+        if($recievedItemIDs) {
+            $em = $this->getDoctrine()->getManager();
+            $repo = $this->getDoctrine()->getRepository('AppBundle:Todo');
+
+            foreach ($recievedItemIDs as $recievedItemID) {
+                dump($recievedItemID);
+                $todo = $repo->find($recievedItemID);
+                $em->remove($todo);
             }
 
             $em->flush();

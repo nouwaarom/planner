@@ -1,3 +1,7 @@
-<p>
-{{ note }}
-</p>
+<ul class=note>
+    {% for note in notes %}
+        <li class=note>
+            {{ note }}
+        </li>
+    {% endfor %}
+</ul>

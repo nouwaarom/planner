@@ -21,4 +21,14 @@ class DeadlineRepository extends EntityRepository
         ->setParameter('end', $end)
         ->getResult();
     }
+
+    public function findFirst(\DateTime $after)
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT d
+            FROM AppBundle:Deadline d
+            WHERE d.epoch > :after'
+        )->setParameter('after', $after)
+        ->getOneOrNullResult();
+    }
 }
