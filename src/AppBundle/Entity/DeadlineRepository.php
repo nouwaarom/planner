@@ -29,6 +29,7 @@ class DeadlineRepository extends EntityRepository
             FROM AppBundle:Deadline d
             WHERE d.epoch > :after'
         )->setParameter('after', $after)
+        ->setMaxResults(1)
         ->getOneOrNullResult();
     }
 }

@@ -15,32 +15,49 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class CalendarController extends Controller
 {
     /**
-     * @Route("/", name="list_calendar")
+     * @Route("/{start}", defaults={"start"=0} , name="list_calendar")
      */
-    public function showAction()
+    public function showAction($start)
     {
         $repository = $this->getDoctrine()->getRepository('AppBundle:Appointment');
         $deadRepository = $this->getDoctrine()->getRepository('AppBundle:Deadline');
 
-        $today = $repository->findDate(new \DateTime('today'));
-        $deadToday = $deadRepository->findDate(new \DateTime('today'));
-        $today = $this->sortByTime($today, $deadToday);
+        $days = array();
+        $titles = array();
 
-        $tomorrow = $repository->findDate(new \DateTime('tomorrow'));
-        $deadTomorrow = $deadRepository->findDate(new \DateTime('tomorrow'));
-        $tomorrow = $this->sortByTime($tomorrow, $deadTomorrow);
+        //Create a datetime object with the right date
+        $date = new \DateTime('today');
+        if ($start > 0) {
+            $date->modify('+ ' . $start . ' days');
+        }
+        else if ($start < 0) {
+            $date->modify('- ' . abs($start) . ' days');
+        }
 
-        $overmorrow = $repository->findDate(new \DateTime('+ 2 days'));
-        $deadOvermorrow = $deadRepository->findDate(new \DateTime('+2 days'));
-        $overmorrow = $this->sortByTime($overmorrow, $deadOvermorrow);
+        //Get the appointments and deadlines per day
+        for ($i=0; $i<3; $i++)
+        {
+            $day = $repository->findDate($date);
+            $deadDay = $deadRepository->findDate($date);
+            $days[$i] = $this->sortByTime($day, $deadDay);
 
+            $titles[$i] = $date->format('l');
+
+            $date->modify('+1 day');
+        }
+
+        //Get the deadlines
         $todo = $this->getDoctrine()->getRepository('AppBundle:Todo')->findAllItemsThatAreNotDone();
 
+        //Pass everything to the template
         return $this->render('Calendar/show.html.twig', array(
-            'today' => $today,
-            'tomorrow' => $tomorrow,
-            'overmorrow' => $overmorrow,
-            'todo' => $todo,
+            'day1' => array_shift($days),
+            'day2' => array_shift($days),
+            'day3' => array_shift($days),
+            'day1title' => array_shift($titles),
+            'day2title' => array_shift($titles),
+            'day3title' => array_shift($titles),
+            'todo' => array_shift($days),
         ));
     }
 
@@ -60,4 +77,4 @@ class CalendarController extends Controller
         else
             return -1;
     }
-} 
+}

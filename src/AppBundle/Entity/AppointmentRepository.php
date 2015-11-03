@@ -37,6 +37,7 @@ class AppointmentRepository extends EntityRepository
             FROM AppBundle:Appointment a
             WHERE a.epoch > :after'
         )->setParameter('after', $after)
+        ->setMaxResults(1)
         ->getOneOrNullResult();
     }
 }

@@ -24,7 +24,7 @@ class NotificationController extends Controller
                             "You got an appointment at: ". $appToday->getDateTime()->format('D H:i:s') :
                             "You are free!!",
                           $deadToday ?
-                            "And a deadline at". $deadToday->getDateTime()->format('D H:i:s') :
+                            "And a deadline at: ". $deadToday->getDateTime()->format('D H:i:s') :
                             "I missed the deadlines :(",
                  )
             )
