@@ -3,21 +3,36 @@
 
 <head>
     <meta charset="utf-8">
-    
+
     <title>{% block title %}Planner{% endblock %}</title>
 
     {% block stylesheets %}
     <link rel="icon" href="{{ asset('img/turtle-icon.png') }}" type="image/png">
+
     <link rel="stylesheet" href="{{ asset('css/stylesheet.css') }}">
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
     {% endblock %}
+
+    {# polymer stuff #}
+    <script src={{ asset('vendor/webcomponentsjs/webcomponents.min.js') }}></script>
+
+    <link rel="import" href={{ asset('vendor/font-roboto/roboto.html') }}>
+
+    <link rel="import" href={{ asset('vendor/core-item/core-item.html') }}>
+    <link rel="import" href={{ asset('vendor/core-icon/core-icon.html') }}>
+
+    <link rel="import" href={{ asset('vendor/core-header-panel/core-header-panel.html') }}>
+
+    <link rel="import" href={{ asset('vendor/paper-input/paper-input.html') }}>
+    <link rel="import" href={{ asset('vendor/paper-button/paper-button.html') }}>
+    <link rel="import" href={{ asset('vendor/paper-fab/paper-fab.html') }}>
+
 
     {% block post_head %}{% endblock %}
 </head>
 
-<body>
+<body fullbleed layout vertical>
     {% block body %}{% endblock %}
+
     {% block javascripts %}{% endblock %}
 </body>
 

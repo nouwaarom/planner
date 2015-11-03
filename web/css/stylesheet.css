@@ -1,6 +1,6 @@
 html, body{
     height: 100%;
-    font-family: 'Helvetica', sans-serif;
+    font-family: 'RobotoDraft', sans-serif;
     font-weight: normal;
 }
 
@@ -8,7 +8,7 @@ body{
     margin: 0px;
     padding: 0px;
     overflow:hidden;
-    background-color: #AAEEAA;
+    /*background-color: #673AB7; */
 }
 
 h1{
@@ -25,17 +25,18 @@ a:hover {
 }
 
 .page-header {
-    font-size: 26px;
-    background-color: #88CC88;
-    padding: 50px 200px;
+    background-color: #512DA8;
+    padding: 30px 200px;
     color: #FFFFFF;
 }
     .page-header h1 {
         margin: 0px;
-        font-size: 56px;
+        font-size: 60px;
+        font-weight: 100;
     }
     .page-header small {
         font-size: 24px;
+        font-weight: 300;
     }
 
 .nav{
@@ -58,6 +59,19 @@ a:hover {
     height: 400px;
     background-color: #FFFFFF;
 }
+    th {
+        font-size: 24px;
+        font-weight: 300;
+    }
+
+    .col-button {
+        display:block;
+        float:left;
+        margin:0px 20px;
+        padding: 100px 0px;
+        width: 100px;
+    }
+
     .col-day {
         display:block;
         float:left;
@@ -67,15 +81,21 @@ a:hover {
 
         .deadline {
             border-bottom: 1px solid black;
+            text-decoration: none;
+        }
+
+        .appointment {
+            text-decoration: none;
         }
 
         .item {
-            text-decoration: none;
+            padding: 10px;
+            font-size: 14px;
         }
 
     .col-todo {
         display:block;
-        float:left;
+        float:right;
         margin:0px 50px;
         width:200px;
     }
@@ -95,14 +115,14 @@ a:hover {
             font-size: 24px;
             margin: 0px 10px 0px 0px;
         }
-        
+
         .col-form ul{
             list-style: none;
             margin: 40px 0px;
         }
 
         .todo {
-            text-decoration: none; 
+            text-decoration: none;
         }
 
         .todo-list {
@@ -117,21 +137,30 @@ a:hover {
             font-size: 20px;
         }
 
-    .high {
-        font-weight: bold;
-    }
-
 .below {
     display: block;
     clear: both;
     padding: 20px 220px;
     background-color: #FFFFFF;
 }
-    .below .btn {
+    .below paper-button {
+        background-color: #E3D5F9;
         margin: 10px;
     }
 
+    .below-left {
+        float: left;
+        margin: 0px 20px;
+    }
+
+    .below-right {
+        float: right;
+        margin: 0px 20px;
+    }
+
 .note {
-    color: #2F2F2F;
+    /*color: #FFFFFF; */
     font-size: 24px;
+    margin: 10px 0px;
+    font-weight: 300;
 }

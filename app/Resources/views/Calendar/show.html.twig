@@ -7,16 +7,17 @@
     </tr>
     {% for appointment in day %}
         <tr><td>
-            <a data-id={{ appointment.id }}
+            <paper-button class=item data-id={{ appointment.id }}
             {% if appointment is deadline %}
-                class="deadline item" href={{ path('edit_deadline', {'id': appointment.id }) }}>
+                class=deadline onclick="window.location.href='{{ path('edit_deadline', {'id': appointment.id }) }}';" >
             {% else %}
-                class="appointment item" href={{ path('edit_appointment', {'id': appointment.id}) }}>
+                class=appointment onclick="window.location.href='{{ path('edit_appointment', {'id': appointment.id}) }}';" >
             {% endif %}
             {{ appointment.description }}
-            </a>
+            </paper-button>
         </td></tr>
     {% endfor %}
+    <tr class=space><td></td></tr>
 </table>
 {% endmacro %}
 
@@ -28,43 +29,58 @@ My Calender
 {% block body %}
     {% import _self as macros %}
 
-    <div class=page-header>
+    <paper-shadow class=page-header>
         <h1>Calender <small>Putting some logic in the tasks...</small></h1>
-    </div>
+    </paper-shadow>
 
-    <div class="row">
-        <div class=col-day>
-            {{ macros.listDay(today, "Today") }} 
-        </div>
-        
-        <div class=col-day>
-            {{ macros.listDay(tomorrow, "Tomorrow") }}
-        </div>
-        
-        <div class=col-day>
-            {{ macros.listDay(overmorrow, "Overmorrow") }} 
+    <div class=row>
+        <div class=col-button>
+            <paper-button>
+                <core-icon icon="chevron-left"></core-icon>
+            </paper-button>
         </div>
 
-        <div class=col-todo>
+        <paper-shadow class=col-day>
+            {{ macros.listDay(day1, day1title) }}
+        </paper-shadow>
+
+        <paper-shadow class=col-day>
+            {{ macros.listDay(day2, day2title) }}
+        </paper-shadow>
+
+        <paper-shadow class=col-day>
+            {{ macros.listDay(day3, day3title) }}
+        </paper-shadow>
+
+        <div class=col-button>
+            <paper-button>
+                <core-icon icon="chevron-right"></core-icon>
+            </paper-button>
+        </div>
+
+        <paper-shadow class=col-todo>
             <table class=todo-list>
                 <tr>
                     <th>Todo</th>
                 </tr>
                 {% for item in todo  %}
                 <tr><td>
-                        <a class=item {% if item.appointment != null %}data-id={{ item.appointment.id }} {% endif %}href="{{ path('list_todo') }}">
+                    <paper-button>
+                        <a class=item {% if item.appointment != null %}data-id={{ item.appointment.id }} {% endif %} onclick="window.location.href='{{ path('list_todo') }}';">
                             {{ item.description }}
                         </a>
+                    </paper-button>
                 </td></tr>
                 {% endfor %}
             </table>
-        </div>
+        </paper-shadow>
     </div>
 
     <div class=below>
-        <a class=btn href={{ path('new_appointment') }}>New Appointment</a>
-        <a class=btn href={{ path('new_todo') }}>New Todo</a>
-        <a class=btn href={{ path('new_deadline') }}>New Deadline</a>
+        <paper-button claas=below-left raised onclick="window.location.href='{{ path('new_appointment') }}';" >New Appointment</paper-button>
+        <paper-button class=below-left raised onclick="window.location.href='{{ path('new_deadline') }}';" >New Deadline</paper-button>
+
+        <paper-button class=below-right raised onclick="window.location.href='{{ path('new_todo') }}';" >New Todo</paper-button>
     </div>
 
     <div class=note-row>
