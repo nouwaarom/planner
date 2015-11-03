@@ -76,7 +76,7 @@ class Appointment
 
     public function setDatetime(\DateTime $epoch)
     {
-       $this->epoch = $epoch; 
+       $this->epoch = $epoch;
     }
 
     public function getDescription()
@@ -99,7 +99,7 @@ class Appointment
         $todo->setAppointment($this);
         $this->todo[] = $todo;
     }
-    
+
     public function removeTodo(Todo $todo)
     {
     }

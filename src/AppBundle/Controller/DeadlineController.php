@@ -23,7 +23,7 @@ class DeadlineController extends Controller
         ));
 
         $form->handleRequest($request);
-        
+
         if($form->isValid())
         {
             $em = $this->getDoctrine()->getManager();

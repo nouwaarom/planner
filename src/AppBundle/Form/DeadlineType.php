@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Todo;
 use AppBundle\Entity\Deadline;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
@@ -19,6 +20,11 @@ class DeadlineType extends AbstractType
                 'time_widget' => 'single_text',
             ))
             ->add('description', 'text')
+            ->add('todo', 'collection', array(
+                'type' => new TodoType(),
+                'allow_add' => true,
+                'by_reference' => false,
+            ))
             ->add('submit', 'submit')
             ->getForm();
     }
