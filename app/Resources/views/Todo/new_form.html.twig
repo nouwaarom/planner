@@ -4,18 +4,17 @@
 New Todo Item
 {% endblock %}
 
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
 {% block body %}
-<div class=container>
-    <div class=page-header>
-        <h1>Add a new todo item <small>more ...</small></h1>
-    </div>
+<paper-material elevation="1" class=page-header>
+    <paper-icon-button icon=star onclick="window.location.href='{{ path('list_calendar') }}';" >
+    </paper-icon-button>
+    <h1>New Todo Item <small>what needs to be done</small></h1>
+</paper-material>
 
-    <div class=row>
-        <div class=col >
-            <h3>Todo</h3>
-            {{ form(form) }}
-        </div>
+<div class=row>
+    <div class=col>
+        <h2>Todo</h2>
+        {{ form(form) }}
     </div>
 </div>
 {% endblock %}

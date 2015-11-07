@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% macro listDay(day, label) %}
-<table class=day-list>
-    <tr>
-        <th>{{ label }}</th>
-    </tr>
+    <h2 class=day-name>{{ label }}</h2>
+    <ul class=day-list>
     {% for appointment in day %}
-        <tr><td>
+        <li>
             <paper-button class=item data-id={{ appointment.id }}
             {% if appointment is deadline %}
                 class=deadline onclick="window.location.href='{{ path('edit_deadline', {'id': appointment.id }) }}';" >
@@ -15,10 +13,9 @@
             {% endif %}
             {{ appointment.description }}
             </paper-button>
-        </td></tr>
+        </li>
     {% endfor %}
-    <tr class=space><td></td></tr>
-</table>
+    </ul>
 {% endmacro %}
 
 
@@ -27,70 +24,61 @@ My Calender
 {% endblock %}
 
 {% block body %}
-    {% import _self as macros %}
+{% import _self as macros %}
 
-    <paper-shadow class=page-header>
-        <h1>Calender <small>Putting some logic in the tasks...</small></h1>
-    </paper-shadow>
+<paper-material elevation="1" class=page-header>
+    <h1>Calender <small>Putting some logic in the tasks...</small></h1>
+</paper-material>
 
-    <div class=row>
-        <div class=col-button>
-            <paper-button onclick="goPage(-3)">
-                <core-icon icon="chevron-left"></core-icon>
-            </paper-button>
+<div class=row>
+    <div class=col-button>
+        <paper-icon-button icon="chevron-left" class=pagination-button onclick="goPage(-3)"></paper-button>
+    </div>
+
+    {% for daytitle, day in days %}
+        <paper-material elevation="1" class=col-day>
+            {{ macros.listDay(day, daytitle) }}
+        </paper-material>
+    {%- endfor %}
+
+    <div class=col-button>
+        <paper-icon-button icon="chevron-right" class=pagination-button onclick="goPage(3)"></paper-button>
+    </div>
+
+    <paper-material elevation="2" class=col-todo>
+        <div horizontal layout>
+            <paper-icon-button icon="view-list" onclick="window.location.href='{{ path('list_todo') }}';"></paper-icon-button>
+            <h2>Todo</h2>
         </div>
 
-        <paper-shadow class=col-day>
-            {{ macros.listDay(day1, day1title) }}
-        </paper-shadow>
-
-        <paper-shadow class=col-day>
-            {{ macros.listDay(day2, day2title) }}
-        </paper-shadow>
-
-        <paper-shadow class=col-day>
-            {{ macros.listDay(day3, day3title) }}
-        </paper-shadow>
-
-        <div class=col-button>
-            <paper-button onclick="goPage(3)">
-                <core-icon icon="chevron-right"></core-icon>
+        <ul class=todo-list>
+        {% for item in todo  %}
+        <li>
+            <paper-button class=item
+                {% if item.appointment != null %} data-id={{ item.appointment.id }} {% endif %} onclick="window.location.href='{{ path('list_todo') }}';">
+                {{ item.description }}
             </paper-button>
-        </div>
+        </li>
+        {% endfor %}
+        <li class="new-todo">
+            <paper-icon-button icon="add" onclick="window.location.href='{{ path('new_todo') }}';"></paper-button>
+        </li>
+        </ul>
+    </paper-material>
+</div>
 
-        <paper-shadow class=col-todo>
-            <table class=todo-list>
-                <tr>
-                    <th>Todo</th>
-                </tr>
-                {% for item in todo  %}
-                <tr><td>
-                    <paper-button>
-                        <a class=item {% if item.appointment != null %}data-id={{ item.appointment.id }} {% endif %} onclick="window.location.href='{{ path('list_todo') }}';">
-                            {{ item.description }}
-                        </a>
-                    </paper-button>
-                </td></tr>
-                {% endfor %}
-            </table>
-        </paper-shadow>
-    </div>
+<div class=below>
+    <paper-button claas=below-left raised onclick="window.location.href='{{ path('new_appointment') }}';" >New Appointment</paper-button>
+    <paper-button class=below-left raised onclick="window.location.href='{{ path('new_deadline') }}';" >New Deadline</paper-button>
+</div>
 
-    <div class=below>
-        <paper-button claas=below-left raised onclick="window.location.href='{{ path('new_appointment') }}';" >New Appointment</paper-button>
-        <paper-button class=below-left raised onclick="window.location.href='{{ path('new_deadline') }}';" >New Deadline</paper-button>
-
-        <paper-button class=below-right raised onclick="window.location.href='{{ path('new_todo') }}';" >New Todo</paper-button>
-    </div>
-
-    <div class=note-row>
-       {{ render(controller(
-            'AppBundle:Notification:getNotifications',
-            { 'date' : date('today') }
-          ))
-       }}
-    </div>
-
+<div class=note-row>
+    {{ render(controller(
+        'AppBundle:Notification:getNotifications',
+        { 'date' : date('today') }
+        ))
+    }}
+</div>
 {% endblock %}
 
 {% block javascripts %}

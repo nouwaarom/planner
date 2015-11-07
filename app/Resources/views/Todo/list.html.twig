@@ -1,50 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-Todo list
-{% endblock %}
+{% block title %}Todo list{% endblock %}
 
 {% block body %}
-<div class=container>
-    <div class=page-header>
-        <h1>Todo list <small>wahooo</small></h1>
-    </div>
+<paper-material elevation="1" class=page-header>
+    <paper-icon-button icon=star onclick="window.location.href='{{ path('list_calendar') }}';" >
+    </paper-icon-button>
+    <h1>Todo list <small>wahooo</small></h1>
+</paper-material>
 
-    <div class="row">
-        <div class=col-todo>
-            <h3>Todo</h3>
-            <form method="POST" action="{{ path('todo_done') }}">
-                <ul class=todo-list>
-                {% for item in todo %}
-                    <li class=input-group>
-                        <span class=input-group-addon>
-                            <input type="checkbox" name="items[]" value="{{ item.id }}" {% if item.done %}checked{% endif %}>
-                        </span>
-                        <span class="form-control">{{ item.description }}</span>
-                    </li>
-                {% endfor %}
-                </ul>
-                <input type="submit" value="Done" class="btn  btn-primary">
-            </form>
-        </div>
+{# TODO: add ajax to do the post requests #}
+<div class=row>
+    <paper-material elevation="2" class=col-day>
+        <h2>Todo</h2>
+        <ul class=todo-list>
+        {% for item in todo %}
+        <li>
+            <paper-button class=todo>
+                {{ item.description }}
+            </paper-button>
+        </li>
+        {% endfor %}
+        <li class="new-todo">
+            <paper-icon-button icon="add" onclick="window.location.href='{{ path('new_todo') }}';"></paper-button>
+        </li>
+        </ul>
+    </paper-material>
 
-        <div class=col-todo>
-            <h3>Done</h3>
-            <form method="POST" action="{{ path('todo_delete') }}">
-                <ul class=todo-list>
-                {% for item in done %}
-                    <li class=input-group>
-                        <span class=input-group-addon>
-                            <input type="checkbox" name="items[]" value="{{ item.id }}">
-                        </span>
-                        <span class="form-control">{{ item.description }}</span>
-                    </li>
-                {% endfor %}
-                </ul>
-                <input type="submit" value="Delete" class="btn  btn-primary">
-            </form>
-        </div>
-
-    </div>
+    <paper-material elecation="2" class=col-day>
+        <h2>Done</h2>
+        <ul class=todo-list>
+        {% for item in done %}
+        <li>
+            <paper-button class=todo>
+                {{ item.description }}
+            </paper-button>
+        </li>
+        {% endfor %}
+        </ul>
+    </paper-material>
 </div>
 {% endblock %}

@@ -1,8 +1,7 @@
 {
   "name": "elbert-application",
   "dependencies": {
-    "jquery": "~2.1.4",
-    "polymer": "Polymer/polymer#~1.2.1",
-    "paper-header-panel": "PolymerElements/paper-header-panel#~1.0.5"
+    "polymer": "Polymer/polymer#^1.2.0",
+    "paper-elements": "polymerelements/paper-elements#~1.0.5"
   }
 }

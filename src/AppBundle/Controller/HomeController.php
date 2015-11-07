@@ -12,6 +12,6 @@ class HomeController extends Controller
      */
     public function showAction()
     {
-        return $this->render('homepage.html.twig');
+        return $this->redirectToRoute('list_calendar');
     }
 }

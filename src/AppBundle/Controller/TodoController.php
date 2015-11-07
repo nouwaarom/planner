@@ -85,8 +85,6 @@ class TodoController extends Controller
     {
         $recievedItemIDs = $request->request->get('items');
 
-        dump($request);
-
         if($recievedItemIDs) {
             $em = $this->getDoctrine()->getManager();
             $repo = $this->getDoctrine()->getRepository('AppBundle:Todo');
