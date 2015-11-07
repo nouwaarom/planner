@@ -33,8 +33,9 @@ class TodoController extends Controller
      */
     public function newAction(Request $request)
     {
-        $form = $this->createForm(new TodoType(), null, array(
+        $form = $this->createForm(TodoType::class, null, array(
             'action' => $this->generateUrl('new_todo'),
+            'include_referer_url' => true,
         ));
 
         $form->handleRequest($request);
@@ -45,7 +46,7 @@ class TodoController extends Controller
             $em->persist($form->getData());
             $em->flush();
 
-            return $this->redirectToRoute('list_todo');
+            return $this->redirect($form->get('_redirect_url')->getData() ?: $this->generateUrl('list_todo'));
         }
 
         return $this->render('Todo/new_form.html.twig', array(

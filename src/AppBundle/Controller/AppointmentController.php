@@ -25,18 +25,19 @@ class AppointmentController extends Controller
 
         $form = $this->createForm(new AppointmentType(), $appointment, array(
             'action' => $this->generateUrl('new_appointment'),
+            'include_referer_url' => true,
         ));
 
         $form->handleRequest($request);
 
-        if($form->isValid()) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($appointment);
 
             $em->flush();
 
-            return $this->redirectToRoute('list_calendar');
+            return $this->redirect($form->get('_redirect_url')->getData() ?: $this->generateUrl('list_calendar'));
         }
 
         return $this->render('Appointment/new_form.twig', array(
@@ -49,7 +50,9 @@ class AppointmentController extends Controller
      */
     public function editAction(Appointment $appointment, Request $request)
     {
-        $form = $this->createForm(new SimpleAppointmentType(), $appointment);
+        $form = $this->createForm(new SimpleAppointmentType(), $appointment, array(
+            'include_referer_url' => true,
+        ));
 
         $form->handleRequest($request);
 
@@ -58,7 +61,7 @@ class AppointmentController extends Controller
         if($form->isSubmitted()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('list_calendar');
+            return $this->redirect($form->get('_redirect_url')->getData() ?: $this->generateUrl('list_calendar'));
         }
 
         return $this->render('Appointment/edit_form.html.twig', array(

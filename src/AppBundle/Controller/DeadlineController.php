@@ -20,6 +20,7 @@ class DeadlineController extends Controller
     {
         $form = $this->createForm(new DeadlineType(), null, array(
             'action' => $this->generateUrl('new_deadline'),
+            'include_referer_url' => true,
         ));
 
         $form->handleRequest($request);
@@ -30,7 +31,7 @@ class DeadlineController extends Controller
             $em->persist($form->getData());
             $em->flush();
 
-            return $this->redirectToRoute('list_calendar');
+            return $this->redirect($form->get('_redirect_url')->getData() ?: $this->generateUrl('list_calendar'));
         }
 
         return $this->render('Deadline/new_form.html.twig', array(
@@ -43,14 +44,16 @@ class DeadlineController extends Controller
      */
     public function editAction(Deadline $deadline, Request $request)
     {
-        $form = $this->createForm(new DeadlineType(), $deadline);
+        $form = $this->createForm(new DeadlineType(), $deadline, array(
+            'include_referer_url' => true,
+        ));
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('list_calendar');
+            return $this->redirect($form->get('_redirect_url')->getData() ?: $this->generateUrl('list_calendar'));
         }
 
         return $this->render('Deadline/edit_form.html.twig', array(

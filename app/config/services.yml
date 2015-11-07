@@ -11,3 +11,9 @@ services:
 
     app.todo_util:
         class: AppBundle\Util\TodoUtil
+
+    app.form_extension.referer:
+        class: AppBundle\Form\Extension\RefererUriExtension
+        arguments: ["@request_stack"]
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }

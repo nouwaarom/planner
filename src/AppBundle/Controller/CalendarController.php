@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class CalendarController extends Controller
 {
     /**
-     * @Route("/{start}", defaults={"start"=0} , name="list_calendar")
+     * @Route("/{start}", defaults={"start": 0} , requirements={"start": "-?[0-9]*"}, name="list_calendar")
      */
     public function showAction($start)
     {
@@ -39,9 +39,7 @@ class CalendarController extends Controller
         {
             $day = $repository->findDate($date);
             $deadDay = $deadRepository->findDate($date);
-            $days[$i] = $this->sortByTime($day, $deadDay);
-
-            $titles[$i] = $date->format('l');
+            $days[$date->format('l')] = $this->sortByTime($day, $deadDay);
 
             $date->modify('+1 day');
         }
@@ -51,13 +49,8 @@ class CalendarController extends Controller
 
         //Pass everything to the template
         return $this->render('Calendar/show.html.twig', array(
-            'day1' => array_shift($days),
-            'day2' => array_shift($days),
-            'day3' => array_shift($days),
-            'day1title' => array_shift($titles),
-            'day2title' => array_shift($titles),
-            'day3title' => array_shift($titles),
-            'todo' => array_shift($days),
+            'days' => $days,
+            'todo' => $todo,
         ));
     }
 
