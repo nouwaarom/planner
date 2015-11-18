@@ -9,35 +9,70 @@
     <h1>Todo list <small>wahooo</small></h1>
 </paper-material>
 
+<paper-material elevation="3" id="js-info-box">
+    <paper-icon-button id="js-close-info-box" icon="close"></paper-icon-button>
+    <div class="todo-line">
+        <h1 class="info-title"></h1>
+        <paper-icon-button id="js-todo-mark-done" icon="done"></paper-icon-button>
+        <paper-icon-button id="js-todo-delete" icon="delete"></paper-icon-button>
+    </div>
+
+    <p class="info-text"></p>
+
+</paper-material>
+
 {# TODO: add ajax to do the post requests #}
 <div class=row>
     <paper-material elevation="2" class=col-day>
         <h2>Todo</h2>
-        <ul class=todo-list>
+        <ul class=todo-list id="js-todo-list">
         {% for item in todo %}
-        <li>
+        <li data-id="{{ item.id }}">
             <paper-button class=todo>
                 {{ item.description }}
             </paper-button>
         </li>
         {% endfor %}
         <li class="new-todo">
-            <paper-icon-button icon="add" onclick="window.location.href='{{ path('new_todo') }}';"></paper-button>
+            <paper-icon-button icon="add" onclick="window.location.href='{{ path('new_todo') }}';"></paper-icon-button>
         </li>
         </ul>
     </paper-material>
 
     <paper-material elecation="2" class=col-day>
         <h2>Done</h2>
-        <ul class=todo-list>
+        <ul class=todo-list id="js-done-list">
         {% for item in done %}
-        <li>
+        <li data-id="{{ item.id }}">
             <paper-button class=todo>
                 {{ item.description }}
             </paper-button>
         </li>
         {% endfor %}
+        <li class="new-todo">
+            <paper-icon-button icon="delete"></paper-icon-button>
+        </li>
         </ul>
     </paper-material>
 </div>
+{% endblock %}
+
+{% block post_head %}
+    {{ parent() }}
+
+    {# flight! #}
+    <script src="{{ asset('vendor/requirejs/require.js') }}"></script>
+    <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+    <script>
+        require.config({
+            'baseUrl': '/js/',
+            'paths': {
+                'flight': '../vendor/flight/lib'
+            }
+        });
+
+        require(['pages/todo_list'], function (todoPage) {
+            todoPage();
+        });
+    </script>
 {% endblock %}

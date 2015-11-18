@@ -205,3 +205,38 @@ a:hover {
     .day-list li:last-child {
         border-bottom:none;
     }
+
+#js-info-box{
+    width:500px;
+    height:300px;
+    background:white;
+
+    position:absolute;
+    left:60%;
+    top:-200%;
+    margin-left:-250px;
+    margin-top:-150px;
+}
+    #js-info-box .todo-line{
+        height: 50px;
+    }
+
+    #js-info-box .info-title{
+        font-weight: 300;
+        font-size: 26px;
+        float:left;
+
+        margin: 0px 20px;
+    }
+
+    #js-info-box .info-text{
+        font-weight: 300;
+        font-size: 16px;
+
+        margin: 0px 20px;
+    }
+
+    #js-todo-send{
+        float:left;
+        margin: 0px 20px;
+    }

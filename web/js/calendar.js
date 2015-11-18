@@ -1,6 +1,8 @@
 /*
  * Highlights appointments and todo items that are linked
  */
+var attribute = "elevation";
+
 var items = document.getElementsByClassName("item");
 
 var i, j;
@@ -16,10 +18,10 @@ for(i = 0; i < items.length; i++)
         for(j = 0; j < todo.length; j++)
         {
             if( todo[j].dataset.id == id){
-                todo[j].classList.add("high");
+                todo[j].setAttribute(attribute, "4");
             }
         }
-        event.target.classList.add("high");
+        event.target.setAttribute(attribute, "4");
     });
 
     items[i].addEventListener("mouseleave", function(event)
@@ -31,10 +33,10 @@ for(i = 0; i < items.length; i++)
         for(j = 0; j < todo.length; j++)
         {
             if( todo[j].dataset.id == id){
-                todo[j].classList.remove("high");
+                todo[j].setAttribute(attribute, "0");
             }
         }
-        event.target.classList.remove("high");
+        event.target.setAttribute(attribute, "0");
     });
 }
 
