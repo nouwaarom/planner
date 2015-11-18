@@ -206,6 +206,10 @@ a:hover {
         border-bottom:none;
     }
 
+.todo-button {
+    margin-left: 70px;
+}
+
 #js-info-box{
     width:500px;
     height:300px;

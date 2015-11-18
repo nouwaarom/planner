@@ -9,23 +9,34 @@ define(['flight/component'], function (defineComponent) {
 
         //set todo item to done or delete it
         this.markDone = function (e) {
+            var itemId = this.select('doneButtonSelector').attr("todo-id");
+
             jQuery.ajax({
-                url: '/api/todo/mark_done/' + this.select('doneButtonSelector').attr("todo-id"),
+                url: '/api/todo/mark_done/' + itemId,
                 type: 'post',
                 dataType: 'json',
                 success: function (data) {
-                   console.log("done");
+                    var doneList = $('#js-done-list');
+                    var item = $('li[data-id=' + itemId + ']');
+
+                    doneList.append(item[0].outerHTML);
+                    item.remove();
+
+                    $('#js-info-box').animate({ 'top': '-200%' });
                 }
             });
         }
 
         this.deleteTodo = function (e) {
+            var itemId = this.select('deleteButtonSelector').attr("todo-id");
+
             jQuery.ajax({
-                url: '/api/todo/delete_todo/' + this.select('deleteButtonSelector').attr("todo-id"),
+                url: '/api/todo/delete_todo/' + itemId,
                 type: 'post',
                 dataType: 'json',
                 success: function (data) {
-                   console.log("done");
+                    $('li[data-id=' + itemId + ']').remove();
+                    $('#js-info-box').animate({ 'top': '-200%' });
                 }
             });
         }

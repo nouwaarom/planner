@@ -2,6 +2,32 @@ define(['flight/component'], function (defineComponent) {
 
     function doneList() {
 
+        var createItem = function (itemData) {
+            var item = '<li data-id="' + itemData.id + '">';
+            item += '<paper-button class="todo">' + itemData.description + '</paper-button>';
+            item += '</li>';
+
+            return item;
+        }
+
+        this.fill = function (e) {
+            jQuery.ajax({
+                'url': '/api/todo/done',
+                'type': 'get',
+                'dataType': 'json',
+                'success': function (data) {
+                    var list = $('#js-done-list');
+
+                    data.forEach(function (item) {
+                        list.append(createItem(item));
+                    });
+                }.bind(this),
+                'error': function (data) {
+                    console.log("CRITICAL ERROR");
+                }
+            });
+        };
+
         this.getInfo = function (e) {
             if (e.target.nodeName == 'LI') {
                 var elem = $(e.target);
@@ -41,6 +67,8 @@ define(['flight/component'], function (defineComponent) {
             this.on('click', {
                 itemSelector: this.getInfo
             });
+
+            this.fill();
         });
 
         this.attributes({

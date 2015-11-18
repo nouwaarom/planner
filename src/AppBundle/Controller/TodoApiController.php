@@ -16,13 +16,28 @@ use AppBundle\Entity\Todo;
 class TodoApiController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/todo")
      */
-    public function indexAction()
+    public function indexTodoAction()
     {
-        $todos = $this->getDoctrine()->getRepository(Todo::class)->findAll();
+        $todos = $this->getDoctrine()->getRepository(Todo::class)->findAllItemsThatAreNotDone();
 
         $json = $this->get('serializer')->serialize($todos, 'json');
+
+        $jsonResponse = new Response($json);
+        $jsonResponse->headers->set('Content-Type', 'application/json');
+
+        return $jsonResponse;
+    }
+
+    /**
+     * @Route("/done")
+     */
+    public function indexDoneAction()
+    {
+        $dones = $this->getDoctrine()->getRepository(Todo::class)->findAllItemsThatAreDone();
+
+        $json = $this->get('serializer')->serialize($dones, 'json');
 
         $jsonResponse = new Response($json);
         $jsonResponse->headers->set('Content-Type', 'application/json');
@@ -60,7 +75,7 @@ class TodoApiController extends Controller
      * @Route("/delete_todo/{id}")
      * @Method("POST")
      */
-    public function deleteTodo(Todo $todo, Request $request)
+    public function deleteTodoAction(Todo $todo, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
