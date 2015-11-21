@@ -1,33 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% macro listDay(day, label) %}
-    <h2 class=day-name>{{ label }}</h2>
-    <ul class=day-list>
-    {% for appointment in day %}
-        <li>
-            <paper-button class=item data-id={{ appointment.id }}
-            {% if appointment is deadline %}
-                class=deadline onclick="window.location.href='{{ path('edit_deadline', {'id': appointment.id }) }}';" >
-            {% else %}
-                class=appointment onclick="window.location.href='{{ path('edit_appointment', {'id': appointment.id}) }}';" >
-            {% endif %}
-            {{ appointment.description }}
-            </paper-button>
-        </li>
-    {% endfor %}
-    </ul>
-{% endmacro %}
-
-
 {% block title %}
 My Calender
 {% endblock %}
 
 {% block body %}
-{% import _self as macros %}
-
 <paper-material elevation="1" class=page-header>
     <h1>Calender <small>Putting some logic in the tasks...</small></h1>
+</paper-material>
+
+{# todo-info-box #}
+<paper-material elevation="3" id="js-info-box">
+    <paper-icon-button id="js-close-info-box" icon="close"></paper-icon-button>
+    <div class="todo-line">
+        <h1 class="info-title"></h1>
+        <paper-icon-button id="js-todo-mark-done" icon="done"></paper-icon-button>
+        <paper-icon-button id="js-todo-delete" icon="delete"></paper-icon-button>
+    </div>
+
+    <p class="info-text"></p>
+
 </paper-material>
 
 <div class=row>
@@ -35,35 +27,17 @@ My Calender
         <paper-icon-button icon="chevron-left" class=pagination-button onclick="goPage(-3)"></paper-button>
     </div>
 
-    {% for daytitle, day in days %}
-        <paper-material elevation="1" class=col-day>
-            {{ macros.listDay(day, daytitle) }}
-        </paper-material>
-    {%- endfor %}
+    <div id="js-calendar-list">
+    </div>
 
     <div class=col-button>
         <paper-icon-button icon="chevron-right" class=pagination-button onclick="goPage(3)"></paper-button>
     </div>
 
     <paper-material elevation="2" class=col-todo>
-        <div horizontal layout>
-            <paper-icon-button icon="view-list" onclick="window.location.href='{{ path('list_todo') }}';"></paper-icon-button>
-            <h2>Todo</h2>
-        </div>
-
-        <ul class=todo-list>
-        {% for item in todo  %}
-        <li>
-            <paper-button class=item
-                {% if item.appointment != null %} data-id={{ item.appointment.id }} {% endif %} onclick="window.location.href='{{ path('list_todo') }}';">
-                {{ item.description }}
-            </paper-button>
-        </li>
-        {% endfor %}
-        <li class="new-todo">
-            <paper-icon-button icon="add" onclick="window.location.href='{{ path('new_todo') }}';"></paper-button>
-        </li>
-        </ul>
+        <h2>Todo</h2>
+        <ul class=todo-list id="js-todo-list"></ul>
+        <paper-icon-button icon="add" class="todo-button" onclick="window.location.href='{{ path('new_todo') }}';"></paper-icon-button>
     </paper-material>
 </div>
 
@@ -81,6 +55,25 @@ My Calender
 </div>
 {% endblock %}
 
-{% block javascripts %}
-<script src={{ asset('js/calendar.js') }}></script>
+{% block post_head %}
+    {{ parent() }}
+
+    {# flight! #}
+    <script src="{{ asset('vendor/requirejs/require.js') }}"></script>
+    <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+    <script>
+        require.config({
+            'baseUrl': '/js/',
+            'paths': {
+                'flight': '../vendor/flight/lib'
+            }
+        });
+
+        require(['pages/calendar_list'], function (calendarPage) {
+            calendarPage();
+        });
+    </script>
+
+    {# evil stuff #}
+    <script src={{ asset('js/calendar.js') }}></script>
 {% endblock %}

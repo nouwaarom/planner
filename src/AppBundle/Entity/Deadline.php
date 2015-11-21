@@ -5,11 +5,12 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Todo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-
+use JMS\Serializer\Annotation as REST;
 
 /**
  * @ORM\Table(name="deadline")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\DeadlineRepository")
+ * @REST\ExclusionPolicy("all")
  */
 class Deadline
 {
@@ -17,16 +18,19 @@ class Deadline
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @REST\Expose
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @REST\Expose
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     * @REST\Expose
      */
     private $epoch;
 

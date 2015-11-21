@@ -6,11 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as REST;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="calendar_appointments")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\AppointmentRepository")
+ * @REST\ExclusionPolicy("all")
  */
 class Appointment
 {
@@ -18,16 +20,19 @@ class Appointment
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @REST\Expose
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @REST\Expose
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     * @REST\Expose
      */
     private $epoch;
 
@@ -38,6 +43,7 @@ class Appointment
 
     /**
      * @ORM\Column(type="integer")
+     * @REST\Expose
      */
     private $priority;
 
