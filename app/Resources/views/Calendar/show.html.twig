@@ -23,15 +23,18 @@ My Calender
 </paper-material>
 
 <div class=row>
-    <div class=col-button>
-        <paper-icon-button icon="chevron-left" class=pagination-button onclick="goPage(-3)"></paper-button>
-    </div>
 
     <div id="js-calendar-list">
+    <div class=col-button>
+        <paper-icon-button id="js-previous-page" icon="chevron-left" class=pagination-button></paper-button>
+    </div>
+
+    <div class="calendar-list">
     </div>
 
     <div class=col-button>
-        <paper-icon-button icon="chevron-right" class=pagination-button onclick="goPage(3)"></paper-button>
+        <paper-icon-button id="js-next-page" icon="chevron-right" class=pagination-button></paper-button>
+    </div>
     </div>
 
     <paper-material elevation="2" class=col-todo>

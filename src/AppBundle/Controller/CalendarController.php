@@ -15,9 +15,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class CalendarController extends Controller
 {
     /**
-     * @Route("/{start}", defaults={"start": 0} , requirements={"start": "-?[0-9]*"}, name="list_calendar")
+     * @Route("/", name="list_calendar")
      */
-    public function showAction($start)
+    public function showAction()
     {
         return $this->render('Calendar/show.html.twig');
     }

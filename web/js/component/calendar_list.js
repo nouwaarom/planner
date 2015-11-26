@@ -2,6 +2,16 @@ define(['flight/component'], function(defineComponent) {
 
     function calendarList() {
 
+        var startDate;
+        var endDate;
+
+        var addDays = function(date, days) {
+            var result = new Date(date);
+            result.setDate(result.getDate() + days);
+
+            return result;
+        }
+
         var createList = function (day, appointments) {
             var list = '<paper-material elevation="1" class=col-day>';
             list += '<h1 class="day-name">' + day + '</h1>';
@@ -25,17 +35,18 @@ define(['flight/component'], function(defineComponent) {
             return item;
         }
 
-        this.fill = function (e) {
+        var fill = function () {
             jQuery.ajax({
                 url: '/api/calendar',
                 type: 'get',
                 dataType: 'json',
                 data: {
-                    start: 'today',
-                    end:   'today +2 days'
+                    start: startDate,
+                    end:   endDate
                 },
                 success: function (data) {
-                    var list = $('#js-calendar-list');
+                    var list = $('.calendar-list');
+                    list.empty();
 
                     Object.keys(data).forEach(function (day) {
                         list.append(createList(day, data[day]));
@@ -48,12 +59,34 @@ define(['flight/component'], function(defineComponent) {
             });
         };
 
+        this.loadPreviousPage = function(e) {
+            startDate = addDays(startDate, -3);
+            endDate   = addDays(endDate,   -3);
+            fill();
+        }
+
+        this.loadNextPage = function(e) {
+            startDate = addDays(startDate, 3);
+            endDate   = addDays(endDate,   3);
+            fill();
+        }
+
         this.after('initialize', function() {
-            this.fill();
+            this.on('click', {
+                previousPageButtonSelector: this.loadPreviousPage,
+                nextPageButtonSelector:     this.loadNextPage
+            });
+
+            //fill the calendar list
+            startDate = new Date();
+            endDate   = addDays(startDate, 2);
+            fill();
         });
 
         this.attributes({
-            itemSelector: 'li'
+            itemSelector: 'li',
+            previousPageButtonSelector: '#js-previous-page',
+            nextPageButtonSelector: '#js-next-page'
         });
 
     }
