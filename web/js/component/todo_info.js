@@ -7,7 +7,25 @@ define(['flight/component'], function (defineComponent) {
             $('#js-info-box').animate({ 'top': '-200%' });
         };
 
-        //set todo item to done or delete it
+        this.startTodo = function (e) {
+            var itemId = this.select('startButtonSelector').attr("todo-id");
+
+            jQuery.ajax({
+                url: '/api/todo/start_todo/' + itemId,
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    var doingList = $('#js-doing-list');
+                    var item = $('li[data-id=' + itemId + ']');
+
+                    doingList.append(item[0].outerHTML);
+                    item.remove();
+
+                    $('#js-info-box').animate({ 'top': '-200%' });
+                }
+            });
+        };
+
         this.markDone = function (e) {
             var itemId = this.select('doneButtonSelector').attr("todo-id");
 
@@ -25,7 +43,7 @@ define(['flight/component'], function (defineComponent) {
                     $('#js-info-box').animate({ 'top': '-200%' });
                 }
             });
-        }
+        };
 
         this.deleteTodo = function (e) {
             var itemId = this.select('deleteButtonSelector').attr("todo-id");
@@ -39,12 +57,13 @@ define(['flight/component'], function (defineComponent) {
                     $('#js-info-box').animate({ 'top': '-200%' });
                 }
             });
-        }
+        };
 
         this.after('initialize', function () {
             this.on('click', {
                 closeButtonSelector:  this.closeInfo,
                 doneButtonSelector:   this.markDone,
+                startButtonSelector:  this.startTodo,
                 deleteButtonSelector: this.deleteTodo
             });
         });
@@ -52,6 +71,7 @@ define(['flight/component'], function (defineComponent) {
         this.attributes({
             closeButtonSelector:  '#js-close-info-box',
             doneButtonSelector:   '#js-todo-mark-done',
+            startButtonSelector:  '#js-todo-start',
             deleteButtonSelector: '#js-todo-delete'
         });
 

@@ -1,5 +1,5 @@
 define(['flight/component'], function (defineComponent) {
-    function todoList() {
+    function doingList() {
 
         var createItem = function (itemData) {
             var item = '<li data-id="' + itemData.id + '">';
@@ -11,18 +11,18 @@ define(['flight/component'], function (defineComponent) {
 
         this.fill = function (e) {
             jQuery.ajax({
-                'url': '/api/todo/todo',
+                'url': '/api/todo/doing',
                 'type': 'get',
                 'dataType': 'json',
                 'success': function (data) {
-                    var list = $('#js-todo-list');
+                    var list = $('#js-doing-list');
 
                     data.forEach(function (item) {
                         list.append(createItem(item));
                     });
                 }.bind(this),
                 'error': function (data) {
-                    console.log("An error occurred while loading todo items");
+                    console.log("An error occurred while loading doing items");
                 }
             });
         };
@@ -52,11 +52,13 @@ define(['flight/component'], function (defineComponent) {
                     }
 
                     //show the mark done button
-                    $('#js-todo-start').show();
-                    $('#js-todo-start').attr("todo-id", data.id);
+                    var markDoneButton = $('#js-todo-mark-done');
+                    markDoneButton.show();
+                    markDoneButton.attr("todo-id", data.id);
+
                     //hide the delete button
                     $('#js-todo-delete').hide();
-                    $('#js-todo-mark-done').hide();
+                    $('#js-todo-start').hide();
 
                     $('#js-info-box').animate({ 'top': '50%' });
                 }
@@ -79,6 +81,7 @@ define(['flight/component'], function (defineComponent) {
 
     }
 
-    return defineComponent(todoList);
+    return defineComponent(doingList);
 
 });
+

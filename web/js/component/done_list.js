@@ -23,7 +23,7 @@ define(['flight/component'], function (defineComponent) {
                     });
                 }.bind(this),
                 'error': function (data) {
-                    console.log("CRITICAL ERROR");
+                    console.log("An error occured while getting done items");
                 }
             });
         };
@@ -55,8 +55,10 @@ define(['flight/component'], function (defineComponent) {
                     //show the delete button
                     $('#js-todo-delete').show();
                     $('#js-todo-delete').attr("todo-id", data.id);
+
                     //hide the mark done button
                     $('#js-todo-mark-done').hide();
+                    $('#js-todo-start').hide();
 
                     $('#js-info-box').animate({ 'top': '50%' });
                 }

@@ -6,12 +6,22 @@ use Doctrine\ORM\EntityRepository;
 
 class TodoRepository extends EntityRepository
 {
-    public function findAllItemsThatAreNotDone()
+    public function findAllItemsThatAreNotActive()
     {
         return $this->getEntityManager()->createQuery(
-                'SELECT t FROM AppBundle:Todo t WHERE t.done = :done'
+                'SELECT t FROM AppBundle:Todo t WHERE t.done = :notdone'
             )
-            ->setParameter('done', false)
+            ->setParameter('notdone', 0)
+            ->getResult();
+    }
+
+    public function findAllItemsThatAreActiveAndNotDone()
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT t FROM AppBundle:Todo t WHERE t.done != :notdone AND t.done != :done'
+        )
+            ->setParameter('notdone', 0)
+            ->setParameter('done', 100)
             ->getResult();
     }
 
@@ -20,7 +30,7 @@ class TodoRepository extends EntityRepository
         return $this->getEntityManager()->createQuery(
                 'SELECT t FROM AppBundle:Todo t WHERE t.done = :done'
             )
-            ->setParameter('done', true)
+            ->setParameter('done', 100)
             ->getResult();
     }
 }

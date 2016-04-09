@@ -42,10 +42,10 @@ class Todo
     private $deadline;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      * @REST\Expose
      */
-    private $done = false;
+    private $done = 0;
 
     private function __construct($description)
     {
@@ -94,19 +94,29 @@ class Todo
 
     public function isDone()
     {
-        return $this->done;
+        return ($this->done == 100) ? true : false;
     }
 
     public function hasBeenDone()
     {
-        $this->done = true;
+        $this->done = 100;
+    }
+
+    public function isStarted()
+    {
+        return ($this->done > 0) ? true : false;
+    }
+
+    public function hasBeenStarted()
+    {
+        $this->done = 1;
     }
 
     static public function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('description', new Assert\Type('string'));
         $metadata->addPropertyConstraint('description', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('done', new Assert\Type('bool'));
+        $metadata->addPropertyConstraint('done', new Assert\Type('integer'));
     }
 }
 

@@ -20,7 +20,22 @@ class TodoApiController extends Controller
      */
     public function indexTodoAction()
     {
-        $todos = $this->getDoctrine()->getRepository(Todo::class)->findAllItemsThatAreNotDone();
+        $todos = $this->getDoctrine()->getRepository(Todo::class)->findAllItemsThatAreNotActive();
+
+        $json = $this->get('serializer')->serialize($todos, 'json');
+
+        $jsonResponse = new Response($json);
+        $jsonResponse->headers->set('Content-Type', 'application/json');
+
+        return $jsonResponse;
+    }
+
+    /**
+     * @Route("/doing")
+     */
+    public function indexDoingAction()
+    {
+        $todos = $this->getDoctrine()->getRepository(Todo::class)->findAllItemsThatAreActiveAndNotDone();
 
         $json = $this->get('serializer')->serialize($todos, 'json');
 
@@ -54,6 +69,21 @@ class TodoApiController extends Controller
         $jsonResponse->headers->set('Content-Type', 'application/json');
 
         return $jsonResponse;
+    }
+
+    /**
+     * @Route("/start_todo/{id}")
+     * @Method("POST")
+     */
+    public function startTodoAction(Todo $todo, Request $request)
+    {
+        $todo->hasBeenStarted();
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse(array(
+            'status' => 'ok',
+        ));
     }
 
     /**

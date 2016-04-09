@@ -1,5 +1,5 @@
 require.config({
-    'basePath': 'js/'
+    'basePath': 'js/',
     'paths': {
         'flight': '../vendor/flight/lib'
     }

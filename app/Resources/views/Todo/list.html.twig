@@ -14,7 +14,8 @@
     <div class="todo-line">
         <h1 class="info-title"></h1>
         <paper-icon-button id="js-todo-mark-done" icon="done"></paper-icon-button>
-        <paper-icon-button id="js-todo-delete" icon="delete"></paper-icon-button>
+        <paper-icon-button id="js-todo-start"     icon="forward"></paper-icon-button>
+        <paper-icon-button id="js-todo-delete"    icon="delete"></paper-icon-button>
     </div>
 
     <p class="info-text"></p>
@@ -26,6 +27,11 @@
         <h2>Todo</h2>
         <ul class=todo-list id="js-todo-list"></ul>
         <paper-icon-button icon="add" class="todo-button" onclick="window.location.href='{{ path('new_todo') }}';"></paper-icon-button>
+    </paper-material>
+
+    <paper-material elevation="2" class=col-day>
+        <h2>Doing</h2>
+        <ul class=todo-list id="js-doing-list"></ul>
     </paper-material>
 
     <paper-material elevation="2" class=col-day>
