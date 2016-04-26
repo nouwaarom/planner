@@ -5,7 +5,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "~3.0",
+        "symfony/symfony": "~2.8",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
@@ -16,11 +16,16 @@
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
-        "jms/serializer-bundle": "^1.1"
+        "jms/serializer-bundle": "^1.1",
+        "behat/mink-extension": "^2.2",
+        "behat/mink-goutte-driver": "^1.2",
+        "simple-bus/message-bus": "^2.2",
+        "simple-bus/symfony-bridge": "^4.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
-        "phpunit/phpunit": "~4.3"
+        "phpunit/phpunit": "~4.3",
+        "behat/behat": "^3.0"
     },
     "scripts": {
         "post-root-package-install": [
