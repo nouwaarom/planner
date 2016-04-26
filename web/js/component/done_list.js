@@ -8,7 +8,7 @@ define(['flight/component'], function (defineComponent) {
             item += '</li>';
 
             return item;
-        }
+        };
 
         this.fill = function (e) {
             jQuery.ajax({
@@ -18,9 +18,11 @@ define(['flight/component'], function (defineComponent) {
                 'success': function (data) {
                     var list = $('#js-done-list');
 
-                    data.forEach(function (item) {
-                        list.append(createItem(item));
-                    });
+                    // List only five items
+                    for (i=0 ; i< Math.min(data.length, 5); i++) {
+                        list.append(createItem(data[i]));
+                    }
+
                 }.bind(this),
                 'error': function (data) {
                     console.log("An error occured while getting done items");

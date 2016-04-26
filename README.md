@@ -2,5 +2,12 @@
 
 ## TODO:
 * Make the site REST
-* add user functionality
+* make functionality for multiple users functionality
+* do bdd
+
+### Scrom structured todo
+Allow Todos to exist out of many items
+
+## Structure todos
+make groups that contain multiple activities that can contain activities and or todos
 
