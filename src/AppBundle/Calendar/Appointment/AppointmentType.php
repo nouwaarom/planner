@@ -1,49 +1,42 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Calendar\Appointment;
 
-use AppBundle\Entity\Todo;
-use AppBundle\Entity\Deadline;
+use AppBundle\Calendar\Appointment\Appointment;
+use AppBundle\Calendar\Todo\TodoType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DeadlineType extends AbstractType
+class AppointmentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('epoch', 'datetime', array(
+            ->add('datetime', 'datetime', array(
                 'data' => new \DateTime(),
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
             ))
             ->add('description', 'text')
+            ->add('priority', 'integer')
             ->add('todo', 'collection', array(
                 'type' => new TodoType(),
                 'allow_add' => true,
                 'by_reference' => false,
             ))
             ->add('submit', 'submit')
-            ->getForm();
+            ->getForm()
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Deadline',
-            'empty_data' => function (FormInterface $form) {
-                return Deadline::plan(
-                    $form->get('description')->getData(),
-                    $form->get('epoch')->getData()
-                );
-            }
-        ));
+        $resolver->setDefault('data_class', Appointment::class);
     }
 
     public function getName()
     {
-        return 'deadline';
+        return 'appointment';
     }
 }

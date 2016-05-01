@@ -1,52 +1,35 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Calendar\Deadline;
 
-use AppBundle\Entity\Todo;
+use AppBundle\Calendar\Todo\Todo;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as REST;
 
 /**
- * @ORM\Table(name="deadline")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\DeadlineRepository")
  * @REST\ExclusionPolicy("all")
  */
 class Deadline
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
      * @REST\Expose
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
      * @REST\Expose
      */
     private $description;
 
     /**
-     * @ORM\Column(type="datetime")
      * @REST\Expose
      */
     private $epoch;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Todo", mappedBy="deadline", cascade={"persist"})
-     */
     private $todo;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
     private $met = false;
 
-    /**
-     * @ORM\Column(type="text")
-     */
     private $reflection = "";
 
     private function __construct($description, \DateTime $epoch)

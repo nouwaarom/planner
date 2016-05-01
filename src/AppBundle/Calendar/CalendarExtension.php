@@ -1,9 +1,8 @@
 <?php
 
-namespace AppBundle\Twig;
+namespace AppBundle\Calendar;
 
-use AppBundle\Entity\Deadline;
-use AppBundle\Entity\Appointment;
+use AppBundle\Calendar\Deadline\Deadline;
 
 class CalendarExtension extends \Twig_Extension
 {

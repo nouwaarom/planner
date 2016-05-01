@@ -1,28 +1,24 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Calendar;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use AppBundle\Entity\Appointment;
-use AppBundle\Entity\Deadline;
+use AppBundle\Calendar\Appointment\Appointment;
+use AppBundle\Calendar\Deadline\Deadline;
 
-/**
- * @Route("/api/calendar")
- */
 class CalendarApiController extends Controller
 {
     /**
-     * @Route("/")
      * Needs start and end request parameters
      */
     public function indexAction(Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository('AppBundle:Appointment');
-        $deadRepository = $this->getDoctrine()->getRepository('AppBundle:Deadline');
+        $repository = $this->getDoctrine()->getRepository(Appointment::class);
+        $deadRepository = $this->getDoctrine()->getRepository(Deadline::class);
 
         //Create a datetime object with the right date
         $date = new \DateTime($request->query->get('start'));

@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Calendar\Todo;
 
-use AppBundle\Entity\Todo;
+use AppBundle\Calendar\Todo\Todo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormInterface;
@@ -29,7 +29,7 @@ class TodoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Todo',
+            'data_class' => Todo::class,
             'empty_data' => function (FormInterface $form) {
                 return Todo::writeDown($form->get('description')->getData());
             },

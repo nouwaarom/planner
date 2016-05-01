@@ -1,17 +1,17 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Calendar;
 
-use AppBundle\Entity\Appointment;
-use AppBundle\Entity\Deadline;
+use AppBundle\Calendar\Appointment\Appointment;
+use AppBundle\Calendar\Deadline\Deadline;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class NotificationController extends Controller
 {
     public function getNotificationsAction(\DateTime $date)
     {
-        $appRepository =  $this->getDoctrine()->getRepository('AppBundle:Appointment');
-        $deadRepository = $this->getDoctrine()->getRepository('AppBundle:Deadline');
+        $appRepository =  $this->getDoctrine()->getRepository(Appointment::class);
+        $deadRepository = $this->getDoctrine()->getRepository(Deadline::class);
 
         $appToday  = $appRepository->findFirst(new \DateTime('today'));
         $deadToday = $deadRepository->findFirst(new \DateTime('today'));

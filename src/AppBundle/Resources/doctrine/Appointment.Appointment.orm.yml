@@ -1,0 +1,26 @@
+AppBundle\Calendar\Appointment\Appointment:
+  type: entity
+  table: calendar_appointments
+  repositoryClass: AppBundle\Calendar\Appointment\AppointmentRepository
+
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+
+  fields:
+    description:
+      type: string
+      length: 255
+    priority:
+      type: integer
+    epoch:
+      type: datetime
+
+  oneToMany:
+    todo:
+      targetEntity: \AppBundle\Calendar\Todo\Todo
+      mappedBy: appointment
+      cascade:
+        - persist
+

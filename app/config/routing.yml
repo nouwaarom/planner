@@ -1,3 +1,60 @@
-_app:
-    resource: "@AppBundle/Controller"
-    type: annotation
+#_app:
+homepage:
+  path: /
+  defaults: {_controller: AppBundle\Authentication\HomeController::showAction}
+
+# Calendar
+list_calendar:
+  path: /calendar
+  defaults: {_controller: AppBundle\Calendar\CalendarController::showAction}
+
+# Calendar API
+index_calendar:
+  path: /api/calendar
+  defaults: {_controller: AppBundle\Calendar\CalendarApiController::indexAction}
+
+# Todo
+list_todo:
+  path: /todo
+  defaults: {_controller: AppBundle\Calendar\Todo\TodoController::showAction}
+new_todo:
+  path: /todo/new
+  defaults: {_controller: AppBundle\Calendar\Todo\TodoController::newAction}
+
+# Todo API
+index_todo:
+  path: /api/todo/todo
+  defaults: {_controller: AppBundle\Calendar\Todo\TodoApiController::indexTodoAction}
+index_doing:
+  path: /api/todo/doing
+  defaults: {_controller: AppBundle\Calendar\Todo\TodoApiController::indexDoingAction}
+index_done:
+  path: /api/todo/done
+  defaults: {_controller: AppBundle\Calendar\Todo\TodoApiController::indexDoneAction}
+get_todo:
+  path: /api/todo/{id}
+  defaults: {_controller: AppBundle\Calendar\Todo\TodoApiController::getAction}
+start_todo:
+  path: /api/todo/start_todo/{id}
+  defaults: {_controller: AppBundle\Calendar\Todo\TodoApiController::startTodoAction}
+  methods: [POST]
+mark_done:
+  path: /api/todo/mark_done/{id}
+  defaults: {_controller: AppBundle\Calendar\Todo\TodoApiController::markDoneAction}
+  methods: [POST]
+delete_todo:
+  path: /api/todo/delete_todo/{id}
+  defaults: {_controller: AppBundle\Calendar\Todo\TodoApiController::deleteTodoAction}
+  methods: [POST]
+
+# Appointment
+new_appointment:
+  path: /appointment/new
+  defaults: {_controller: AppBundle\Calendar\Appointment\AppointmentController::newAction}
+
+# Deadline
+new_deadline:
+  path: /deadline/new
+  defaults: {_controller: AppBundle\Calendar\Deadline\DeadlineController::newAction}
+
+# Activity

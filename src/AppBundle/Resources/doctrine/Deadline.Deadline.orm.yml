@@ -1,0 +1,27 @@
+AppBundle\Calendar\Deadline\Deadline:
+  type: entity
+  table: deadline
+  repositoryClass: AppBundle\Calendar\Deadline\DeadlineRepository
+
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+
+  fields:
+    description:
+      type: string
+      length: 255
+    epoch:
+      type: datetime
+    met:
+      type: boolean
+    reflection:
+      type: text
+
+  oneToMany:
+    todo:
+      targetEntity: \AppBundle\Calendar\Todo\Todo
+      mappedBy: appointment
+      cascade:
+        - persist

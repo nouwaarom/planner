@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Calendar\Deadline;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Form\DeadlineType;
-use AppBundle\Entity\Deadline;
+use AppBundle\Calendar\Deadline\DeadlineType;
+use AppBundle\Calendar\Deadline\Deadline;
 
 /**
  * @Route("/deadline")

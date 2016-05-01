@@ -1,31 +1,22 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Calendar\Todo;
 
-use AppBundle\Entity\Todo;
-use AppBundle\Form\TodoType;
+use AppBundle\Calendar\Todo\Todo;
+use AppBundle\Calendar\Todo\TodoType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-/**
- * @Route("/todo")
- */
 class TodoController extends Controller
 {
-    /**
-     * @Route("/", name="list_todo")
-     */
     public function showAction()
     {
         return $this->render('Todo/list.html.twig');
     }
 
-    /**
-     * @Route("/new", name="new_todo")
-     */
     public function newAction(Request $request)
     {
         $form = $this->createForm(TodoType::class, null, array(

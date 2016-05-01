@@ -48,14 +48,6 @@ My Calender
     <paper-button claas=below-left raised onclick="window.location.href='{{ path('new_appointment') }}';" >New Appointment</paper-button>
     <paper-button class=below-left raised onclick="window.location.href='{{ path('new_deadline') }}';" >New Deadline</paper-button>
 </div>
-
-<div class=note-row>
-    {{ render(controller(
-        'AppBundle:Notification:getNotifications',
-        { 'date' : date('today') }
-        ))
-    }}
-</div>
 {% endblock %}
 
 {% block post_head %}

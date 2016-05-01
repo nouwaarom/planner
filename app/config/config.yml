@@ -63,7 +63,12 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
+        mappings:
+          AppBundle:
+            mapping: true
+            type: yml
+            dir: "Resources/doctrine"
+            prefix: AppBundle\Calendar
 
 # Swiftmailer Configuration
 swiftmailer:

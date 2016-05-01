@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Util;
+namespace AppBundle\Calendar\Todo;
 
-use AppBundle\Entity\Todo;
+use AppBundle\Calendar\Todo\Todo;
 
 class TodoUtil
 {

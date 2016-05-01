@@ -1,24 +1,18 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Calendar\Appointment;
 
-use AppBundle\Entity\Appointment;
-use AppBundle\Entity\Todo;
-use AppBundle\Form\AppointmentType;
-use AppBundle\Form\SimpleAppointmentType;
+use AppBundle\Calendar\Appointment\Appointment;
+use AppBundle\Calendar\Todo\Todo;
+use AppBundle\Calendar\Appointment\AppointmentType;
+use AppBundle\Calendar\Appointment\SimpleAppointmentType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-/**
- * @Route("/appointment")
- */
 class AppointmentController extends Controller
 {
-    /**
-     * @Route("/new", name="new_appointment")
-     */
     public function newAction(Request $request)
     {
         $appointment = new Appointment();

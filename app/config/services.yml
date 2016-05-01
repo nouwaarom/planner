@@ -5,15 +5,15 @@ parameters:
 
 services:
     app.twig.calendar_extension:
-        class: AppBundle\Twig\CalendarExtension
+        class: AppBundle\Calendar\CalendarExtension
         tags:
             - { name: twig.extension }
 
     app.todo_util:
-        class: AppBundle\Util\TodoUtil
+        class: AppBundle\Calendar\Todo\TodoUtil
 
     app.form_extension.referer:
-        class: AppBundle\Form\Extension\RefererUriExtension
+        class: AppBundle\Calendar\RefererUriExtension
         arguments: ["@request_stack"]
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }

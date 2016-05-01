@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Calendar\Todo;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -8,16 +8,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use AppBundle\Entity\Todo;
+use AppBundle\Calendar\Todo\Todo;
 
-/**
- * @Route("/api/todo")
- */
 class TodoApiController extends Controller
 {
-    /**
-     * @Route("/todo")
-     */
     public function indexTodoAction()
     {
         $todos = $this->getDoctrine()->getRepository(Todo::class)->findAllItemsThatAreNotActive();
@@ -30,9 +24,6 @@ class TodoApiController extends Controller
         return $jsonResponse;
     }
 
-    /**
-     * @Route("/doing")
-     */
     public function indexDoingAction()
     {
         $todos = $this->getDoctrine()->getRepository(Todo::class)->findAllItemsThatAreActiveAndNotDone();
@@ -45,9 +36,6 @@ class TodoApiController extends Controller
         return $jsonResponse;
     }
 
-    /**
-     * @Route("/done")
-     */
     public function indexDoneAction()
     {
         $dones = $this->getDoctrine()->getRepository(Todo::class)->findAllItemsThatAreDone();

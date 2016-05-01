@@ -1,48 +1,40 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Calendar\Todo;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\Appointment;
+use AppBundle\Calendar\Appointment\Appointment;
+use AppBundle\Calendar\Deadline\Deadline;
 use JMS\Serializer\Annotation as REST;
 
 /**
- * @ORM\Table(name="todo_items")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\TodoRepository")
  * @REST\ExclusionPolicy("all")
  */
 class Todo
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
      * @REST\Expose
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
      * @REST\Expose
      */
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Appointment", inversedBy="todo")
      * @REST\Expose
      */
     private $appointment;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Deadline", inversedBy="todo")
      * @REST\Expose
      */
     private $deadline;
 
     /**
-     * @ORM\Column(type="integer")
      * @REST\Expose
      */
     private $done = 0;

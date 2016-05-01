@@ -1,0 +1,24 @@
+AppBundle\Calendar\Todo\Todo:
+  type: entity
+  table: todo_items
+  repositoryClass: AppBundle\Calendar\Todo\TodoRepository
+
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+
+  fields:
+    description:
+      type: string
+      length: 255
+    done:
+      type: integer
+
+  manyToOne:
+    appointment:
+      targetEntity: \AppBundle\Calendar\Appointment\Appointment
+      inversedBy: todo
+    deadline:
+      targetEntity: \AppBundle\Calendar\Deadline\Deadline
+      inversedBy: todo
