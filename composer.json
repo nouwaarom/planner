@@ -17,15 +17,16 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
         "jms/serializer-bundle": "^1.1",
-        "behat/mink-extension": "^2.2",
-        "behat/mink-goutte-driver": "^1.2",
         "simple-bus/message-bus": "^2.2",
         "simple-bus/symfony-bridge": "^4.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
         "phpunit/phpunit": "~4.3",
-        "behat/behat": "^3.0"
+        "behat/behat": "^3.0",
+        "behat/mink-extension": "^2.2",
+        "behat/mink-goutte-driver": "^1.2",
+        "behat/symfony2-extension": "^2.1"
     },
     "scripts": {
         "post-root-package-install": [

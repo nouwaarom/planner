@@ -48,9 +48,6 @@ class TodoApiController extends Controller
         return $jsonResponse;
     }
 
-    /**
-     * @Route("/{id}")
-     */
     public function getAction(Todo $todo)
     {
         $jsonResponse = new Response($this->get('serializer')->serialize($todo, 'json'));
@@ -59,10 +56,6 @@ class TodoApiController extends Controller
         return $jsonResponse;
     }
 
-    /**
-     * @Route("/start_todo/{id}")
-     * @Method("POST")
-     */
     public function startTodoAction(Todo $todo, Request $request)
     {
         $todo->hasBeenStarted();
@@ -74,10 +67,6 @@ class TodoApiController extends Controller
         ));
     }
 
-    /**
-     * @Route("/mark_done/{id}")
-     * @Method("POST")
-     */
     public function markDoneAction(Todo $todo, Request $request)
     {
         $todo->hasBeenDone();
@@ -89,10 +78,6 @@ class TodoApiController extends Controller
         ));
     }
 
-    /**
-     * @Route("/delete_todo/{id}")
-     * @Method("POST")
-     */
     public function deleteTodoAction(Todo $todo, Request $request)
     {
         $em = $this->getDoctrine()->getManager();

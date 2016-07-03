@@ -17,3 +17,10 @@ services:
         arguments: ["@request_stack"]
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
+
+    # Command handlers
+    app.handler.todo.create:
+      class: AppBundle\Calendar\Todo\Handler\NewTodoHandler
+      arguments: ['@doctrine.orm.entity_manager']
+      tags:
+        - { name: command_handler, handles: new_todo }

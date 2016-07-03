@@ -39,7 +39,7 @@ class Todo
      */
     private $done = 0;
 
-    private function __construct($description)
+    public function __construct($description)
     {
         $this->description = $description;
     }

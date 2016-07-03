@@ -6,17 +6,37 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
+use Behat\Symfony2Extension\Context\KernelAwareContext;
+use Symfony\Component\HttpKernel\KernelInterface;
+
+use AppBundle\Calendar\Todo\Command\NewTodo;
+use AppBundle\Calendar\Todo\Todo;
 
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
+class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext, KernelAwareContext
 {
+    private $kernel;
+
+    public function setKernel(KernelInterface $kernel)
+    {
+        $this->kernel = $kernel;
+    }
+
+    protected function getContainer()
+    {
+        return $this->kernel->getContainer();
+    }
+
     /**
      * @Given there are no todo items
      */
     public function thereAreNoTodoItems()
     {
+        PHPUnit_Framework_Assert::anything();
+
+        return;
         $this->visit('/api/todo/todo');
 
         $content = $this->getSession()->getPage()->getContent();
@@ -30,6 +50,13 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iAddANewTodoItemWithDescription($description)
     {
+        $command = new NewTodo($description, 0);
+
+        $container = $this->kernel->getContainer();
+
+        $container->get('command_bus')->handle($command);
+
+        return;
         $this->visit('/todo/new');
 
         $page = $this->getSession()->getPage();
@@ -41,9 +68,18 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     /**
      * @Then a new todo item called :arg1 should be added
      */
-    public function aNewTodoItemCalledShouldBeAdded($arg1)
+    public function aNewTodoItemCalledShouldBeAdded($description)
     {
-        throw new PendingException();
+        $container = $this->kernel->getContainer();
+
+        $todos = $container->get('doctrine')->getRepository(Todo::class)->findAllItemsThatAreNotActive();
+
+        foreach ($todos as $todo) {
+            if ($todo->getDescription() == $description) {
+                return true;
+            }
+        }
+        PHPUnit_Framework_Assert::fail();
     }
 
     /**

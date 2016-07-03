@@ -2,7 +2,7 @@
 
 ## TODO:
 * Make the site REST
-* make functionality for multiple users functionality
+* make functionality for multiple userst  functionality
 * do bdd
 
 ### Scrom structured todo
