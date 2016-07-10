@@ -47,6 +47,12 @@ delete_todo:
   defaults: {_controller: AppBundle\Calendar\Todo\TodoApiController::deleteTodoAction}
   methods: [POST]
 
+# Todo Stats
+todo_stat:
+  path: /todo/stats
+  defaults: {_controller: AppBundle\Calendar\Todo\TodoStatsController::indexAction}
+  methods: [GET]
+
 # Appointment
 new_appointment:
   path: /appointment/new

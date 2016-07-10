@@ -7,7 +7,6 @@ define(['component/todo_list', 'component/doing_list', 'component/done_list', 'c
         DoneList.attachTo('#js-done-list');
 
         TodoInfo.attachTo('#js-info-box');
-
     }
 
 });

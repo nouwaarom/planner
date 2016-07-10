@@ -60,23 +60,8 @@ define(['flight/component'], function (defineComponent) {
         };
 
         this.after('initialize', function () {
-            this.on('click', {
-                closeButtonSelector:  this.closeInfo,
-                doneButtonSelector:   this.markDone,
-                startButtonSelector:  this.startTodo,
-                deleteButtonSelector: this.deleteTodo
-            });
         });
-
-        this.attributes({
-            closeButtonSelector:  '#js-close-info-box',
-            doneButtonSelector:   '#js-todo-mark-done',
-            startButtonSelector:  '#js-todo-start',
-            deleteButtonSelector: '#js-todo-delete'
-        });
-
     }
 
     return defineComponent(todoInfo);
-
 });

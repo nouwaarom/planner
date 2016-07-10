@@ -4,6 +4,7 @@
     "polymer": "Polymer/polymer#^1.2.0",
     "paper-elements": "polymerelements/paper-elements#~1.0.5",
     "flight": "~1.5.1",
-    "requirejs": "~2.1.20"
+    "requirejs": "~2.1.20",
+    "Chart.js": "^2.1.6"
   }
 }
