@@ -4,7 +4,7 @@ namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use AppBundle\Entity\Todo;
+use AppBundle\Calendar\Todo\Todo;
 
 class LoadTodoData implements FixtureInterface
 {

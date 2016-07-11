@@ -64,3 +64,8 @@ new_deadline:
   defaults: {_controller: AppBundle\Calendar\Deadline\DeadlineController::newAction}
 
 # Activity
+
+# Pomodoro
+show_pomodoro:
+  path: /pomodoro
+  defaults: {_controller: AppBundle\Pomodoro\PomodoroController::showAction}

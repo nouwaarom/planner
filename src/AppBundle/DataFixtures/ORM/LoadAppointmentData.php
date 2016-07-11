@@ -4,7 +4,7 @@ namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use AppBundle\Entity\Appointment;
+use AppBundle\Calendar\Appointment\Appointment;
 
 class LoadAppointmentData implements FixtureInterface
 {

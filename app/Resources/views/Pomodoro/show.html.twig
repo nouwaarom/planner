@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Pomodoro
+{% endblock %}
+
+{% block body %}
+
+    <h1>Tomatoes</h1>
+
+    <div id="timer"></div>
+
+    <input type="button" onclick="startTime()" value="Start">
+
+    <input type="button" onclick="stopTime()" value="Stop">
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var stopping = false;
+        var milisecondsPassed = 0;
+        var lastTime;
+
+        function updateTime() {
+            var time = new Date();
+
+            var diff = Math.abs(time - lastTime);
+            lastTime = time;
+            milisecondsPassed += diff;
+
+            var m = Math.floor(milisecondsPassed / 60000);
+            var s = Math.floor((milisecondsPassed / 1000) % 60);
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('timer').innerHTML =
+                    m + ":" + s;
+            if (!stopping) {
+                var t = setTimeout(updateTime, 500);
+            }
+        }
+
+        function checkTime(i) {
+            if (i < 10) {i = "0" + i}  // add zero in front of numbers < 10
+            return i;
+        }
+
+        function startTime() {
+            console.log("Starting timer");
+            lastTime = new Date();
+            stopping = false;
+            updateTime();
+        }
+
+        function stopTime() {
+            console.log("Stopping timer");
+            stopping = true;
+        }
+    </script>
+{% endblock %}
